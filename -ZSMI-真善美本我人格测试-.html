@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌟 ZSMI 真善美本我人格测试 🌟</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* 开始页面 */
+        .start-page {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .start-page h1 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .start-page .subtitle {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        .dimension-intro {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .dimension-intro h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .dimension-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px dashed #e0e0e0;
+        }
+
+        .dimension-item:last-child {
+            border-bottom: none;
+        }
+
+        .dimension-letter {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .dimension-text {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .start-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 16px 50px;
+            font-size: 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .start-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
+        }
+
+        /* 问题页面 */
+        .question-page {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            height: 8px;
+            border-radius: 4px;
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .question-number {
+            color: #667eea;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 20px;
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 16px 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: left;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f0f2ff;
+            transform: translateX(5px);
+        }
+
+        .option-label {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 4px;
+        }
+
+        .option-text {
+            color: #555;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        /* 结果页面 */
+        .result-page {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .result-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .result-code {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .result-title {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .result-quote {
+            font-size: 18px;
+            color: #667eea;
+            font-style: italic;
+        }
+
+        .result-section {
+            margin-bottom: 25px;
+        }
+
+        .result-section h3 {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .result-section p {
+            color: #555;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        .result-section ul {
+            color: #555;
+            line-height: 2;
+            padding-left: 20px;
+        }
+
+        .trait-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .trait-tag {
+            background: #f0f2ff;
+            color: #667eea;
+            padding: 6px 14px;
+            border-radius: 15px;
+            font-size: 13px;
+        }
+
+        .scene-box {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 15px 20px;
+            border-radius: 0 12px 12px 0;
+            margin-top: 10px;
+        }
+
+        .scene-box p {
+            margin-bottom: 8px;
+        }
+
+        .scene-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .advice-box {
+            background: linear-gradient(135deg, #fff5f5 0%, #fff0f5 100%);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .advice-box p {
+            color: #e75480;
+            font-size: 16px;
+        }
+
+        .share-section {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px dashed #e0e0e0;
+        }
+
+        .restart-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            font-size: 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .restart-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .share-hint {
+            color: #999;
+            font-size: 13px;
+            margin-top: 15px;
+        }
+
+        /* 动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* 响应式 */
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+            
+            .start-page, .question-page, .result-page {
+                padding: 25px 20px;
+            }
+            
+            .start-page h1 {
+                font-size: 24px;
+            }
+            
+            .question-text {
+                font-size: 18px;
+            }
+            
+            .result-title {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 开始页面 -->
+        <div class="start-page fade-in" id="startPage">
+            <h1>🌟 ZSMI 真善美本我 🌟</h1>
+            <p class="subtitle">—— 发现你灵魂深处的光芒 ——</p>
+            
+            <div class="dimension-intro">
+                <h3>四个维度，解读你的内在力量</h3>
+                <div class="dimension-item">
+                    <div class="dimension-letter">Z</div>
+                    <div class="dimension-text"><strong>真 Truth</strong> — 坦诚直接 vs 委婉含蓄</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-letter">S</div>
+                    <div class="dimension-text"><strong>善 Goodness</strong> — 利他给予 vs 自我守护</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-letter">M</div>
+                    <div class="dimension-text"><strong>美 Beauty</strong> — 追求秩序 vs 接纳混沌</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-letter">I</div>
+                    <div class="dimension-text"><strong>我 Inner</strong> — 外显表达 vs 内敛沉淀</div>
+                </div>
+            </div>
+            
+            <button class="start-btn" onclick="startTest()">✨ 开始测试</button>
+        </div>
+
+        <!-- 问题页面 -->
+        <div class="question-page" id="questionPage">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="question-number" id="questionNumber"></div>
+            <div class="question-text" id="questionText"></div>
+            <div class="options" id="options"></div>
+        </div>
+
+        <!-- 结果页面 -->
+        <div class="result-page" id="resultPage"></div>
+    </div>
+
+    <script>
+        // 题目数据
+        const questions = [
+            {
+                text: "朋友问「你觉得我今天穿得怎么样」，但其实穿得一般，你会？",
+                dimension: "Z",
+                options: [
+                    { label: "坦诚", text: "委婉但诚实地提建议——「挺好的，不过那条裙子可能更适合你」", value: "+" },
+                    { label: "含蓄", text: "保护对方的心情——「好看呀！你穿什么都好看」", value: "-" }
+                ]
+            },
+            {
+                text: "你加班赶完方案，同事临时有急事想让你帮忙分担，你内心的第一反应？",
+                dimension: "S",
+                options: [
+                    { label: "给予", text: "「虽然累但ta更需要帮助」，答应了", value: "+" },
+                    { label: "守护", text: "「我也需要休息」，婉拒或协商", value: "-" }
+                ]
+            },
+            {
+                text: "约朋友出去玩，你更倾向于？",
+                dimension: "M",
+                options: [
+                    { label: "秩序", text: "提前规划路线、订餐厅、做攻略，安排妥当再出发", value: "+" },
+                    { label: "随性", text: "随心所欲，走到哪玩到哪，意外也是风景", value: "-" }
+                ]
+            },
+            {
+                text: "遇到触动你的事情，你通常会？",
+                dimension: "I",
+                options: [
+                    { label: "表达", text: "愿意跟朋友分享、发朋友圈、用某种方式表达出来", value: "+" },
+                    { label: "内敛", text: "自己默默消化，写日记或者藏在心里", value: "-" }
+                ]
+            },
+            {
+                text: "有人误解了你，你会？",
+                dimension: "Z",
+                options: [
+                    { label: "澄清", text: "找机会解释清楚，不想留下误会", value: "+" },
+                    { label: "释然", text: "算了，懂我的人自然懂，不懂的人解释也没用", value: "-" }
+                ]
+            },
+            {
+                text: "你更容易被什么感动？",
+                dimension: "S",
+                options: [
+                    { label: "付出", text: "看到有人默默付出、牺牲自己成全他人的故事", value: "+" },
+                    { label: "坚守", text: "看到有人在困境中坚持做自己、守护边界的故事", value: "-" }
+                ]
+            },
+            {
+                text: "你的房间/桌面通常是？",
+                dimension: "M",
+                options: [
+                    { label: "整洁", text: "整洁有序，每样东西都有固定位置", value: "+" },
+                    { label: "随意", text: "有点乱但我能找到东西，乱中有我的逻辑", value: "-" }
+                ]
+            },
+            {
+                text: "面对内心的想法，你更常？",
+                dimension: "I",
+                options: [
+                    { label: "外显", text: "想到什么会说出来，表达是我整理思绪的方式", value: "+" },
+                    { label: "内省", text: "先在脑子里想清楚，确定了才说", value: "-" }
+                ]
+            }
+        ];
+
+        // 16种人格结果数据
+        const results = {
+            "ZSMI": {
+                name: "明月使者",
+                quote: "我想成为一束光，照亮你也温暖我自己",
+                description: "坦诚、温暖、有条理，还愿意主动表达。是朋友圈里那个「有事找ta准没错」的人。像一轮明月，光芒温柔却清晰可见。",
+                belief: "真诚是最好的沟通方式，善良值得被看见。",
+                traits: ["温柔的诚实", "明明白白的付出", "让人安心的规划", "健康的情绪表达"],
+                lesson: "有时候会忘记：不是所有人都准备好接受真相。你的坦诚是礼物，但礼物也需要挑合适的时机送出。",
+                scene: "朋友在纠结要不要分手。你认真听完，然后说：「我觉得你心里已经有答案了。你需要的不是建议，是有人支持你做那个决定。不管你选什么，我都在。」",
+                advice: "试着给自己也留一盏灯——你照亮别人的时候，记得也让别人有机会照亮你。"
+            },
+            "ZSMi": {
+                name: "树洞守护者",
+                quote: "我听见你没说出口的话",
+                description: "坦诚、善良、喜欢有序的生活，但不太主动表达自己。是那种「不说话但全都懂」的存在。像一棵大树，沉默地提供庇荫。",
+                belief: "我的理解不需要说出口，做出来就好。",
+                traits: ["超强倾听力", "记住小事的温柔", "不图回报的照顾", "丰富的内心世界"],
+                lesson: "有时候别人不知道你付出了多少，因为你从不说。适当「晒一晒」你的好，不是虚荣，是让在乎你的人安心。",
+                scene: "朋友生日。你没发朋友圈祝福，但ta收到了一份礼物——上次随口提过想要的那本书。你什么都没说，只写了一张小卡片：「生日快乐。」",
+                advice: "你值得被看见。试着把「我其实......」后面的话说完整。"
+            },
+            "ZSmI": {
+                name: "破晓行者",
+                quote: "我走我的路，但我会在路上等你",
+                description: "坦诚、有主见、接受生活的不完美，而且愿意把想法说出来。有一种「清醒的温柔」——知道世界不完美，但依然热爱。",
+                belief: "保护好自己，才有力量真正帮助别人。",
+                traits: ["清晰的边界感", "接纳不完美", "团队的清醒剂", "情绪稳定"],
+                lesson: "有时候你的「清醒」会让人觉得有距离。不是每个人都和你一样想明白了——偶尔「糊涂」一下，也是一种温柔。",
+                scene: "朋友失恋了找你哭诉。你没有说「ta不值得」或者「会好的」。你说：「今晚我陪你喝酒，明天你再决定要不要难过。但今晚，随便你。」",
+                advice: "你的清醒很珍贵，但偶尔让自己「不讲道理」地被人宠一宠，也可以。"
+            },
+            "ZSmi": {
+                name: "心湖倒影",
+                quote: "我在安静中懂你",
+                description: "坦诚但含蓄，善良但内敛，接纳不完美却不多说。像一面平静的湖水——倒映着一切，却很少泛起波澜。",
+                belief: "懂的人自然懂，不懂的人解释也无用。",
+                traits: ["惊人的观察力", "独立的价值体系", "润物细无声的温暖", "丰富的精神世界"],
+                lesson: "你的湖水太平静，有时候别人不知道你是「宁静」还是「冷淡」。试着偶尔扔一颗石子进去——让别人看到你的涟漪。",
+                scene: "聚会上大家聊得热火朝天。你没怎么说话，但散场后单独发微信给那个今天状态不太对的朋友：「今天还好吗？如果想聊可以找我。」",
+                advice: "你的世界很美，偶尔邀请别人进去看看吧。"
+            },
+            "zSMI": {
+                name: "温暖灯塔",
+                quote: "我把最好的留给你，但用我的方式说",
+                description: "善良、有规划、愿意表达，但说话方式比较委婉。像一座灯塔——指引方向，但光芒是柔和的，不刺眼。",
+                belief: "好意也需要好好包装，才能被收下。",
+                traits: ["体贴周到", "如沐春风的表达", "说到做到", "不强加于人的善意"],
+                lesson: "有时候你包装得太好，别人以为那是「客气」而不是「真心」。偶尔「笨拙」一点地表达，反而更动人。",
+                scene: "同事工作出了问题。你没有直接指出，而是说：「这个方案整体不错，我有几个点想和你聊聊，可能会让它更上一层楼......」",
+                advice: "直接说「我在乎你」试试——比迂回一百句都管用。"
+            },
+            "zSMi": {
+                name: "幕后花匠",
+                quote: "我把花种好，等你来发现",
+                description: "善良、细心、有秩序，但不太主动展示。喜欢在幕后默默付出，把一切安排好，然后享受别人「哇好贴心」的瞬间。",
+                belief: "最好的爱是不打扰的成全。",
+                traits: ["细节控", "不图回报的给予", "低调温暖", "不可或缺的存在"],
+                lesson: "你藏得太深了。付出不需要高调，但也别让自己一直隐形——被看见不是虚荣，是让爱形成闭环。",
+                scene: "朋友来你家做客。发现冰箱里有ta上次提过想喝的饮料，沙发上放着多的靠垫，连Wi-Fi密码都提前打印好了。你装作无所谓：「没什么，顺便的。」",
+                advice: "下次ta说谢谢的时候，试着说「我是特意的」——让你的用心被认领。"
+            },
+            "zSmI": {
+                name: "清风侠客",
+                quote: "我用我的方式爱这个世界",
+                description: "有自己的原则，但表达委婉；保护自己，但并不冷漠；接受混乱，活得自在。像一阵清风——来去自由，但吹过的地方都留下舒适。",
+                belief: "照顾好自己，才能自由地善待别人。",
+                traits: ["活得通透", "优雅的拒绝", "松弛自在", "对值得的人真诚"],
+                lesson: "你的「边界感」有时候会被误读为「不在乎」。在重要的人面前，偶尔让自己「越界」一点点，他们会很开心的。",
+                scene: "朋友组织聚会，你不想去。你没有编借口，只是说：「这次就不去啦，你们玩得开心，下次约我感兴趣的我肯定到。」",
+                advice: "你可以为喜欢的人破例——这不是失去边界，是让他们感到特别。"
+            },
+            "zSmi": {
+                name: "雾中灯火",
+                quote: "我不会说很多话，但我会一直在",
+                description: "委婉、善良、随性、内敛——四个「柔」放在一起。像雾中若隐若现的灯火，让人觉得温暖，又有点神秘。",
+                belief: "陪伴是最长情的告白。",
+                traits: ["不争不抢的平静", "用行动表达关心", "不评判的接纳", "怎么相处都舒服"],
+                lesson: "你太轻了——轻到有时候别人会忽略你在。试着偶尔「重」一点，让自己被需要、被惦记。",
+                scene: "朋友很久没联系你了。你没有抱怨，只是在ta突然找你的时候，像什么都没发生一样回复：「在呢，怎么了？」",
+                advice: "主动发一条「我想你了」，你会发现世界的反馈比你想象的温暖。"
+            },
+            "ZsNI": {
+                name: "烈日勇者",
+                quote: "我就是我，坦坦荡荡",
+                description: "坦诚、守护自己、追求秩序、主动表达——四个维度都很「刚」。像正午的太阳，光芒万丈，没有阴影。",
+                belief: "真实是最大的力量。",
+                traits: ["所见即所得", "原则性强", "有话直说", "不靠讨好换认可"],
+                lesson: "你的光芒很强，有时候会晃到别人的眼睛。学会「调节亮度」——不是收敛自己，是照顾别人的适应时间。",
+                scene: "开会的时候，大家在打太极。你直接说：「我觉得这个方案有三个问题，第一是......」最后大家发现：你说的都是对的。",
+                advice: "加一句「你觉得呢」——给别人参与的空间，你们会走得更远。"
+            },
+            "ZsMi": {
+                name: "星空书写者",
+                quote: "我的世界很清晰，只是不一定说给你听",
+                description: "坦诚、有主见、追求秩序，但选择性沉默。内心是一片清晰的星空——逻辑分明，但只有走近的人才能看到。",
+                belief: "我知道自己是谁，这就够了。",
+                traits: ["独立思考", "有自己的系统", "可靠的存在", "一针见血"],
+                lesson: "别人有时候需要「听到」你的想法，才能理解你、信任你。沉默是金，但偶尔的开口是钻石。",
+                scene: "团队讨论了两小时没有结论。结束时有人问你意见。你说了三句话，直接指出了问题本质和解决方案。全场安静，然后开始执行。",
+                advice: "提前说，而不是最后说——你的智慧值得更早被听到。"
+            },
+            "ZiMI": {
+                name: "阳光织网者",
+                quote: "我把好意编成故事讲给你听",
+                description: "坦诚、追求秩序美、主动表达，但说话方式温和委婉。像阳光透过纱窗——依然明亮，但不刺眼。",
+                belief: "真实可以很温柔。",
+                traits: ["有原则有技巧", "讲究但不苛刻", "让人听得舒服", "不靠吵架说服人"],
+                lesson: "有时候你包装得太好，力道就弱了。重要的事，可以适当「直给」——别人能承受的比你以为的多。",
+                scene: "给实习生反馈，ta的方案需要大改。你说：「整体思路很好，我有几个点想和你聊聊......」改完后ta特别感谢你。",
+                advice: "偶尔做一次「严厉的好人」——你会发现别人反而更尊重你。"
+            },
+            "ZiMi": {
+                name: "月下思考者",
+                quote: "我想清楚了才行动，但行动一定算数",
+                description: "坦诚、委婉、追求秩序、内敛——组合起来是一种「安静的可靠」。像月光下的一盏灯，不耀眼，但你知道它一直亮着。",
+                belief: "谋定而后动。",
+                traits: ["人形保险箱", "说话算话", "天生的幕后军师", "表面平静内心清晰"],
+                lesson: "你的思考很成熟，但想太久会错过时机。有时候「差不多」就可以开始了——边做边调整也是一种智慧。",
+                scene: "朋友创业邀请你入伙。你没立刻答应，回去做了详细调研，一周后拿出一份报告，包括风险分析和「我可以帮你做这些」。",
+                advice: "试试「先说好，再想怎么做」——惊喜有时候比完美更珍贵。"
+            },
+            "zsMI": {
+                name: "星河漫步者",
+                quote: "我用自己的节奏丈量世界",
+                description: "委婉、守护自我、接纳混沌、愿意表达——这是一种很少见的「松弛感」。像一个在星河中漫步的人，自在、随性、不急不躁。",
+                belief: "人生不是冲刺，是一场漫游。",
+                traits: ["情绪稳定", "有自己的节奏", "愿意分享不求理解", "相处像度假"],
+                lesson: "你的松弛是真正的松弛，但有时候别人需要你「紧」一下——比如ta真的很需要你的明确态度时。",
+                scene: "大家都在焦虑deadline。你也在做，但没有焦虑。有人问：「你不急吗？」你说：「急也还是要做，不如不急地做。」",
+                advice: "分一点你的松弛感给别人——教会他们也慢下来。"
+            },
+            "zsMi": {
+                name: "彩虹信使",
+                quote: "世界已经够灰了，我来加点颜色",
+                description: "委婉善良、守护自己、追求美感、主动表达——组合起来是一种「温柔的创造力」。像一道彩虹，自己美着，也让别人心情变好。",
+                belief: "美是治愈世界的药。",
+                traits: ["审美在线", "愿意分享美好", "表达有温度", "保护自己也温暖他人"],
+                lesson: "彩虹需要阳光和雨水——偶尔允许自己「下雨」，不用一直美美的。",
+                scene: "朋友心情不好。你没有讲大道理，而是发了一张今天拍的晚霞照片：「送给你。今天的天空很像你——经过了很多事，但还是很美。」",
+                advice: "也给自己发一张照片——你值得欣赏自己。"
+            },
+            "zsmi": {
+                name: "深林种花者",
+                quote: "我在自己的世界里，种给自己的花",
+                description: "委婉、自我守护、追求秩序、内敛——四个维度都偏「内向」。像深林里一个人在种花的人，不求被发现，只求花开得好。",
+                belief: "我的花为自己而开。",
+                traits: ["极其丰富的精神世界", "高度的自我完整性", "不依赖外界认可", "真正的独处高手"],
+                lesson: "你的林子很美，但一个人待太久会错过外面的阳光。偶尔出来走走，让别人也看看你的花。",
+                scene: "你有一项坚持了很久的爱好。没发过朋友圈，没告诉过任何人。作品堆满了文件夹。你享受创作本身，发不发表无所谓。",
+                advice: "邀请一个人进入你的森林——哪怕只是让ta看一眼你的花。"
+            },
+            "zsmi": {
+                name: "云端守望者",
+                quote: "我在自己的世界里，安静地爱着这个世界",
+                description: "委婉、守护自我、接纳混乱、内敛——四个维度都很「柔」很「轻」。像云端上一个安静守望的人，看着人间，不打扰，但在祝福。",
+                belief: "存在本身就是意义。",
+                traits: ["接纳一切不评判", "独立完整", "让人安心的存在感", "真正的顺其自然"],
+                lesson: "你太超脱了——有时候人间需要你「下凡」一下，参与进来，哪怕弄脏一点点手。",
+                scene: "朋友吵架找你评理。你听完没站任何一边：「你们都有道理。可能过两天就好了。如果没好，再来找我。」两天后果然好了。",
+                advice: "偶尔「多管闲事」一下——这个世界需要你的参与。"
+            }
+        };
+
+        // 状态变量
+        let currentQuestion = 0;
+        let answers = { Z: 0, S: 0, M: 0, I: 0 };
+
+        // 开始测试
+        function startTest() {
+            document.getElementById('startPage').style.display = 'none';
+            document.getElementById('questionPage').style.display = 'block';
+            document.getElementById('questionPage').classList.add('fade-in');
+            showQuestion();
+        }
+
+        // 显示问题
+        function showQuestion() {
+            const question = questions[currentQuestion];
+            const progress = ((currentQuestion) / questions.length) * 100;
+            
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('questionNumber').textContent = `问题 ${currentQuestion + 1} / ${questions.length}`;
+            document.getElementById('questionText').textContent = question.text;
+            
+            const optionsHtml = question.options.map((opt, index) => `
+                <div class="option" onclick="selectOption('${question.dimension}', '${opt.value}')">
+                    <div class="option-label">${opt.label}</div>
+                    <div class="option-text">${opt.text}</div>
+                </div>
+            `).join('');
+            
+            document.getElementById('options').innerHTML = optionsHtml;
+        }
+
+        // 选择选项
+        function selectOption(dimension, value) {
+            if (value === '+') {
+                answers[dimension]++;
+            }
+            
+            currentQuestion++;
+            
+            if (currentQuestion < questions.length) {
+                document.getElementById('questionPage').classList.remove('fade-in');
+                setTimeout(() => {
+                    document.getElementById('questionPage').classList.add('fade-in');
+                    showQuestion();
+                }, 50);
+            } else {
+                showResult();
+            }
+        }
+
+        // 计算并显示结果
+        function showResult() {
+            // 计算类型代码
+            const code = 
+                (answers.Z >= 1 ? 'Z' : 'z') +
+                (answers.S >= 1 ? 'S' : 's') +
+                (answers.M >= 1 ? 'M' : 'm') +
+                (answers.I >= 1 ? 'I' : 'i');
+            
+            // 获取结果数据（如果没有匹配的，使用默认）
+            let result = results[code];
+            if (!result) {
+                // 尝试一些备用匹配
+                const fallbackCodes = ['ZSMI', 'ZSMi', 'ZSmI', 'ZSmi', 'zSMI', 'zSMi', 'zSmI', 'zSmi'];
+                for (let fc of fallbackCodes) {
+                    if (results[fc]) {
+                        result = results[fc];
+                        break;
+                    }
+                }
+            }
+            
+            document.getElementById('questionPage').style.display = 'none';
+            document.getElementById('resultPage').style.display = 'block';
+            document.getElementById('resultPage').classList.add('fade-in');
+            
+            document.getElementById('resultPage').innerHTML = `
+                <div class="result-header">
+                    <div class="result-code">你的类型代码：${code}</div>
+                    <h1 class="result-title">「${result.name}」</h1>
+                    <p class="result-quote">"${result.quote}"</p>
+                </div>
+                
+                <div class="result-section">
+                    <h3>📖 人物速写</h3>
+                    <p>${result.description}</p>
+                </div>
+                
+                <div class="result-section">
+                    <h3>💫 核心信念</h3>
+                    <p>"${result.belief}"</p>
+                </div>
+                
+                <div class="result-section">
+                    <h3>✨ 你的光芒</h3>
+                    <div class="trait-tags">
+                        ${result.traits.map(t => `<span class="trait-tag">${t}</span>`).join('')}
+                    </div>
+                </div>
+                
+                <div class="result-section">
+                    <h3>📚 你的功课</h3>
+                    <p>${result.lesson}</p>
+                </div>
+                
+                <div class="result-section">
+                    <h3>🎬 代表场景</h3>
+                    <div class="scene-box">
+                        <p>${result.scene}</p>
+                    </div>
+                </div>
+                
+                <div class="result-section">
+                    <div class="advice-box">
+                        <h3 style="color: #e75480; margin-bottom: 10px;">💝 专属小建议</h3>
+                        <p>${result.advice}</p>
+                    </div>
+                </div>
+                
+                <div class="share-section">
+                    <button class="restart-btn" onclick="restartTest()">🔄 重新测试</button>
+                    <p class="share-hint">截图分享给朋友，看看ta是什么类型～</p>
+                </div>
+            `;
+        }
+
+        // 重新测试
+        function restartTest() {
+            currentQuestion = 0;
+            answers = { Z: 0, S: 0, M: 0, I: 0 };
+            document.getElementById('resultPage').style.display = 'none';
+            document.getElementById('startPage').style.display = 'block';
+            document.getElementById('startPage').classList.add('fade-in');
+        }
+    </script>
+</body>
+</html>
