@@ -1,0 +1,1918 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>角星君 · 亲密关系人格测试</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(180deg, #e8e0f8 0%, #d4c8f0 40%, #c8bce8 100%);
+            min-height: 100vh;
+            padding: 20px 16px 40px;
+        }
+
+        .container { max-width: 420px; margin: 0 auto; }
+
+        /* ══ 开始页 ══ */
+        #startPage { text-align: center; }
+
+        .start-banner {
+            background: linear-gradient(135deg, #9b7fe8 0%, #7c5cbf 100%);
+            border-radius: 24px;
+            padding: 28px 24px 24px;
+            margin-bottom: 18px;
+            box-shadow: 0 8px 24px rgba(124,92,191,0.35);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .start-banner::before {
+            content: '';
+            position: absolute;
+            top: -20px; right: -20px;
+            width: 100px; height: 100px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+
+        .banner-title {
+            font-size: 36px;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 3px 3px 0 rgba(0,0,0,0.15);
+            letter-spacing: 2px;
+            line-height: 1.2;
+            margin-bottom: 6px;
+        }
+
+        .banner-sub {
+            font-size: 14px;
+            color: rgba(255,255,255,0.85);
+            font-weight: 600;
+        }
+
+        .white-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 22px 20px;
+            margin-bottom: 14px;
+            box-shadow: 0 4px 16px rgba(124,92,191,0.12);
+        }
+
+        .dim-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .dim-card {
+            background: #f3eeff;
+            border-radius: 14px;
+            padding: 12px 14px;
+            border: 2px solid #e0d4f8;
+        }
+
+        .dim-card .dim-title {
+            font-size: 13px;
+            font-weight: 800;
+            color: #7c5cbf;
+            margin-bottom: 4px;
+        }
+
+        .dim-card .dim-vs {
+            font-size: 11px;
+            color: #a090c0;
+            line-height: 1.6;
+        }
+
+        .badges {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: #f3eeff;
+            color: #7c5cbf;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            border: 2px solid #e0d4f8;
+        }
+
+        .start-intro {
+            font-size: 13px;
+            color: #7a6a9a;
+            line-height: 1.8;
+            font-weight: 600;
+            margin-bottom: 18px;
+            background: #f9f6ff;
+            border-radius: 12px;
+            padding: 12px 14px;
+            border-left: 3px solid #9b7fe8;
+            text-align: left;
+        }
+
+        .start-btn {
+            background: linear-gradient(135deg, #9b7fe8 0%, #7c5cbf 100%);
+            color: white;
+            border: none;
+            padding: 16px 0;
+            font-size: 18px;
+            font-weight: 900;
+            border-radius: 50px;
+            cursor: pointer;
+            width: 100%;
+            letter-spacing: 2px;
+            box-shadow: 0 6px 0 #5a3d9a, 0 8px 16px rgba(124,92,191,0.4);
+            transition: transform 0.15s, box-shadow 0.15s;
+            font-family: inherit;
+        }
+
+        .start-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 0 #5a3d9a, 0 10px 20px rgba(124,92,191,0.4);
+        }
+
+        .start-btn:active {
+            transform: translateY(3px);
+            box-shadow: 0 3px 0 #5a3d9a, 0 4px 10px rgba(124,92,191,0.3);
+        }
+
+        /* ══ 问题页 ══ */
+        #questionPage { display: none; }
+
+        .progress-wrap {
+            background: #fff;
+            border-radius: 16px;
+            padding: 14px 18px;
+            margin-bottom: 14px;
+            box-shadow: 0 4px 16px rgba(124,92,191,0.12);
+        }
+
+        .progress-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .progress-num {
+            font-size: 13px;
+            font-weight: 800;
+            color: #7c5cbf;
+        }
+
+        .progress-dim {
+            font-size: 11px;
+            color: #b0a0d0;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            background: #ede8f8;
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #9b7fe8, #c4a8ff);
+            height: 100%;
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+
+        .q-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 18px 18px 20px;
+            margin-bottom: 14px;
+            box-shadow: 0 4px 16px rgba(124,92,191,0.12);
+        }
+
+        .q-label-tag {
+            display: inline-block;
+            background: #9b7fe8;
+            color: #fff;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 3px 12px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .q-bubble-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .q-char-placeholder {
+            width: 72px;
+            height: 72px;
+            flex-shrink: 0;
+            background: linear-gradient(135deg, #e8d8ff, #d0c0f0);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+
+        .q-bubble {
+            flex: 1;
+            background: #f3eeff;
+            border-radius: 0 16px 16px 16px;
+            padding: 12px 14px;
+            position: relative;
+        }
+
+        .q-bubble::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 12px;
+            border: 5px solid transparent;
+            border-right-color: #f3eeff;
+        }
+
+        .q-bubble .q-title {
+            font-size: 11px;
+            color: #9b7fe8;
+            font-weight: 800;
+            margin-bottom: 5px;
+            letter-spacing: 0.3px;
+        }
+
+        .q-bubble .q-text {
+            font-size: 14px;
+            color: #3d2d6e;
+            line-height: 1.65;
+            font-weight: 600;
+        }
+
+        .q-scene {
+            font-size: 12px;
+            color: #9080b0;
+            font-weight: 600;
+            margin-top: 6px;
+            font-style: italic;
+        }
+
+        /* 五点量表选项 */
+        .options-5pt {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .opt-btn-5pt {
+            background: #fff;
+            border: 2.5px solid #e0d4f8;
+            border-radius: 14px;
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+            width: 100%;
+            font-family: inherit;
+            box-shadow: 0 3px 0 #e0d4f8;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .opt-btn-5pt:hover:not(:disabled) {
+            border-color: #9b7fe8;
+            background: #f3eeff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 0 #c4a8ff;
+        }
+
+        .opt-btn-5pt:active:not(:disabled) {
+            transform: translateY(1px);
+            box-shadow: 0 2px 0 #c4a8ff;
+        }
+
+        .opt-btn-5pt:disabled { cursor: default; }
+
+        .opt-btn-5pt.chosen {
+            border-color: #9b7fe8;
+            background: #f3eeff;
+            box-shadow: 0 3px 0 #9b7fe8;
+        }
+
+        .opt-emoji {
+            font-size: 20px;
+            flex-shrink: 0;
+            width: 28px;
+            text-align: center;
+        }
+
+        .opt-content {
+            flex: 1;
+        }
+
+        .opt-main-text {
+            font-size: 13px;
+            color: #4a3a7a;
+            line-height: 1.5;
+            font-weight: 700;
+            display: block;
+        }
+
+        .opt-sub-text {
+            font-size: 11px;
+            color: #a090c0;
+            font-weight: 600;
+            display: block;
+            margin-top: 2px;
+        }
+
+        /* Q25 综合校验题 - 特殊布局 */
+        .options-q25 {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        /* 即时反馈 */
+        .feedback-box {
+            display: none;
+            background: #fff;
+            border-radius: 16px;
+            padding: 14px 16px;
+            margin-bottom: 14px;
+            border-left: 4px solid #9b7fe8;
+            box-shadow: 0 4px 16px rgba(124,92,191,0.1);
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .fb-label {
+            font-size: 11px;
+            color: #9b7fe8;
+            font-weight: 800;
+            margin-bottom: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        .fb-text {
+            font-size: 13px;
+            color: #6a5a9a;
+            line-height: 1.7;
+            font-weight: 600;
+        }
+
+        .next-btn {
+            display: none;
+            width: 100%;
+            background: linear-gradient(135deg, #9b7fe8 0%, #7c5cbf 100%);
+            color: white;
+            border: none;
+            padding: 16px 0;
+            font-size: 16px;
+            font-weight: 900;
+            border-radius: 50px;
+            cursor: pointer;
+            letter-spacing: 1px;
+            box-shadow: 0 6px 0 #5a3d9a, 0 8px 16px rgba(124,92,191,0.35);
+            transition: transform 0.15s, box-shadow 0.15s;
+            font-family: inherit;
+        }
+
+        .next-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 0 #5a3d9a, 0 10px 20px rgba(124,92,191,0.35);
+        }
+
+        .next-btn:active {
+            transform: translateY(3px);
+            box-shadow: 0 3px 0 #5a3d9a;
+        }
+
+        /* ══ 结果页 ══ */
+        #resultPage { display: none; }
+
+        .result-banner {
+            background: linear-gradient(135deg, #9b7fe8 0%, #7c5cbf 100%);
+            border-radius: 24px;
+            padding: 28px 24px;
+            margin-bottom: 14px;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(124,92,191,0.35);
+        }
+
+        .result-type-tag {
+            display: inline-block;
+            background: rgba(255,255,255,0.25);
+            color: #fff;
+            font-size: 12px;
+            font-weight: 800;
+            padding: 4px 16px;
+            border-radius: 20px;
+            margin-bottom: 14px;
+            letter-spacing: 2px;
+        }
+
+        .result-avatar {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid rgba(255,255,255,0.6);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            margin: 0 auto 14px;
+            display: block;
+        }
+
+        .result-name {
+            font-size: 32px;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 2px 2px 0 rgba(0,0,0,0.15);
+            letter-spacing: 4px;
+            margin-bottom: 6px;
+        }
+
+        .result-mnemonic {
+            font-size: 12px;
+            color: rgba(255,255,255,0.8);
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .result-quote {
+            font-size: 14px;
+            color: rgba(255,255,255,0.9);
+            font-style: italic;
+            line-height: 1.7;
+            font-weight: 600;
+        }
+
+        /* 信度指数 */
+        .reliability-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 14px 18px;
+            margin-bottom: 14px;
+            box-shadow: 0 4px 16px rgba(124,92,191,0.12);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .reliability-icon {
+            font-size: 28px;
+            flex-shrink: 0;
+        }
+
+        .reliability-info { flex: 1; }
+
+        .reliability-label {
+            font-size: 11px;
+            color: #9b7fe8;
+            font-weight: 800;
+            margin-bottom: 3px;
+        }
+
+        .reliability-bar-wrap {
+            background: #ede8f8;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 3px;
+        }
+
+        .reliability-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, #9b7fe8, #c4a8ff);
+            transition: width 1s ease;
+        }
+
+        .reliability-text {
+            font-size: 11px;
+            color: #b0a0c8;
+            font-weight: 600;
+        }
+
+        /* 光谱卡片 */
+        .spectrum-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 18px 18px;
+            margin-bottom: 14px;
+            box-shadow: 0 4px 16px rgba(124,92,191,0.12);
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 900;
+            color: #7c5cbf;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .spectrum-item { margin-bottom: 16px; }
+        .spectrum-item:last-child { margin-bottom: 0; }
+
+        .spectrum-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: #9080b0;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .spectrum-labels .s-mid {
+            color: #c0b0d8;
+            font-size: 10px;
+        }
+
+        .spectrum-track {
+            position: relative;
+            background: #ede8f8;
+            height: 10px;
+            border-radius: 5px;
+            overflow: visible;
+        }
+
+        .spectrum-fill {
+            height: 100%;
+            border-radius: 5px;
+            background: linear-gradient(90deg, #9b7fe8, #c4a8ff);
+            transition: width 1.2s ease;
+        }
+
+        .spectrum-midline {
+            position: absolute;
+            left: 50%;
+            top: -3px;
+            width: 2px;
+            height: 16px;
+            background: #c0b0d8;
+            transform: translateX(-50%);
+            border-radius: 1px;
+        }
+
+        .spectrum-tendency {
+            font-size: 10px;
+            color: #b0a0c8;
+            margin-top: 3px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        /* 维度详细分析 */
+        .dim-detail-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 18px 18px;
+            margin-bottom: 14px;
+            box-shadow: 0 4px 16px rgba(124,92,191,0.12);
+        }
+
+        .dim-detail-item {
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #f0eaff;
+        }
+
+        .dim-detail-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .dim-detail-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .dim-detail-name {
+            font-size: 13px;
+            font-weight: 800;
+            color: #7c5cbf;
+        }
+
+        .dim-detail-pct {
+            font-size: 12px;
+            font-weight: 900;
+            color: #9b7fe8;
+            background: #f3eeff;
+            padding: 2px 10px;
+            border-radius: 10px;
+        }
+
+        .dim-detail-stars {
+            font-size: 12px;
+            margin-bottom: 4px;
+        }
+
+        .dim-detail-desc {
+            font-size: 12px;
+            color: #8070a8;
+            line-height: 1.6;
+            font-weight: 600;
+        }
+
+        /* 描述卡片 */
+        .desc-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 18px 18px;
+            margin-bottom: 14px;
+            box-shadow: 0 4px 16px rgba(124,92,191,0.12);
+        }
+
+        .desc-card p {
+            font-size: 14px;
+            color: #5a4a8a;
+            line-height: 1.85;
+            font-weight: 600;
+        }
+
+        /* 建议卡片 */
+        .advice-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 18px 18px;
+            margin-bottom: 14px;
+            box-shadow: 0 4px 16px rgba(124,92,191,0.12);
+        }
+
+        .advice-item {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+            align-items: flex-start;
+        }
+
+        .advice-item:last-child { margin-bottom: 0; }
+
+        .advice-icon {
+            font-size: 18px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .advice-text {
+            font-size: 13px;
+            color: #6a5a9a;
+            line-height: 1.65;
+            font-weight: 600;
+        }
+
+        /* CP 配对 */
+        .cp-card-wrap {
+            background: #fff;
+            border-radius: 20px;
+            padding: 18px 18px;
+            margin-bottom: 14px;
+            box-shadow: 0 4px 16px rgba(124,92,191,0.12);
+        }
+
+        .cp-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .cp-card {
+            background: #f3eeff;
+            border: 2px solid #e0d4f8;
+            border-radius: 16px;
+            padding: 12px 8px;
+            text-align: center;
+        }
+
+        .cp-type-label {
+            font-size: 10px;
+            color: #9b7fe8;
+            font-weight: 900;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .cp-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #c4a8ff;
+            margin: 0 auto 7px;
+            display: block;
+        }
+
+        .cp-code {
+            font-size: 13px;
+            color: #7c5cbf;
+            font-weight: 900;
+            margin-bottom: 2px;
+            letter-spacing: 1px;
+        }
+
+        .cp-name {
+            font-size: 12px;
+            color: #9080b0;
+            font-weight: 700;
+        }
+
+        .cp-desc {
+            font-size: 10px;
+            color: #b0a0c8;
+            margin-top: 4px;
+            line-height: 1.4;
+            font-weight: 600;
+        }
+
+        /* 免责声明 */
+        .disclaimer {
+            background: #f9f6ff;
+            border-radius: 14px;
+            padding: 12px 14px;
+            margin-bottom: 14px;
+            border: 1px solid #e8e0f8;
+        }
+
+        .disclaimer p {
+            font-size: 11px;
+            color: #b0a0c8;
+            line-height: 1.7;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .restart-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #9b7fe8 0%, #7c5cbf 100%);
+            color: white;
+            border: none;
+            padding: 16px 0;
+            font-size: 16px;
+            font-weight: 900;
+            border-radius: 50px;
+            cursor: pointer;
+            letter-spacing: 1px;
+            box-shadow: 0 6px 0 #5a3d9a, 0 8px 16px rgba(124,92,191,0.35);
+            transition: transform 0.15s, box-shadow 0.15s;
+            font-family: inherit;
+            margin-bottom: 12px;
+        }
+
+        .restart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 0 #5a3d9a, 0 10px 20px rgba(124,92,191,0.35);
+        }
+
+        .restart-btn:active {
+            transform: translateY(3px);
+            box-shadow: 0 3px 0 #5a3d9a;
+        }
+
+        .share-hint {
+            text-align: center;
+            color: #b0a0c8;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* ══ 动画 ══ */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in { animation: fadeIn 0.4s ease; }
+
+        /* ══ 响应式 ══ */
+        @media (max-width: 380px) {
+            .banner-title { font-size: 28px; }
+            .cp-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- ══ 开始页 ══ -->
+    <div id="startPage" class="fade-in">
+        <div class="start-banner">
+            <div class="banner-title">角 星 君</div>
+            <div class="banner-sub">✦ 亲密关系人格测试 V2.0 ✦</div>
+        </div>
+
+        <div class="white-card">
+            <div class="dim-grid">
+                <div class="dim-card">
+                    <div class="dim-title">深沉 · 旷达</div>
+                    <div class="dim-vs">D 沉入内心深处<br>vs W 旷野自由流动</div>
+                </div>
+                <div class="dim-card">
+                    <div class="dim-title">映照 · 陪伴</div>
+                    <div class="dim-vs">M 敏感细腻映照<br>vs P 平静稳定陪伴</div>
+                </div>
+                <div class="dim-card">
+                    <div class="dim-title">隐语 · 鸣响</div>
+                    <div class="dim-vs">S 沉默藏于心底<br>vs V 鸣响说出来</div>
+                </div>
+                <div class="dim-card">
+                    <div class="dim-title">炼化 · 融合</div>
+                    <div class="dim-vs">F 直面炼化冲突<br>vs L 融合等待消散</div>
+                </div>
+            </div>
+
+            <div class="badges">
+                <span class="badge">✦ 共 25 题</span>
+                <span class="badge">⏱ 约 5 分钟</span>
+                <span class="badge">🔬 科学增强版</span>
+                <span class="badge">🌙 CP 配对</span>
+            </div>
+
+            <div class="start-intro">
+                欢迎来到「脑回路解码实验室」！<br>
+                接下来有 25 个生活切片，请凭第一直觉选择。<br>
+                这不是考试，没有对错，只是帮你画一张「灵魂使用说明书」。
+            </div>
+
+            <button class="start-btn" onclick="startTest()">✦ 开始测试 ✦</button>
+        </div>
+    </div>
+
+    <!-- ══ 问题页 ══ -->
+    <div id="questionPage">
+        <div class="progress-wrap">
+            <div class="progress-top">
+                <span class="progress-num" id="qNum"></span>
+                <span class="progress-dim" id="qDim"></span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-label-tag" id="qLabel"></div>
+            <div class="q-bubble-row">
+                <div class="q-char-placeholder">✦</div>
+                <div class="q-bubble">
+                    <div class="q-title" id="qTitle"></div>
+                    <div class="q-text" id="qText"></div>
+                    <div class="q-scene" id="qScene"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="optionsList"></div>
+
+        <div class="feedback-box" id="feedbackBox">
+            <div class="fb-label">✦ 角星君说</div>
+            <div class="fb-text" id="feedbackText"></div>
+        </div>
+
+        <button class="next-btn" id="nextBtn" onclick="nextQuestion()">继续 →</button>
+    </div>
+
+    <!-- ══ 结果页 ══ -->
+    <div id="resultPage"></div>
+
+</div>
+
+<script>
+// ─────────────────────────────────────────────────────────────
+// 题目数据（25题，五点量表）
+// 每题 score 为 1-5，代表从左极端到右极端
+// dim: 维度标识，reverse: 是否反向题，weight: 权重
+// leftDim / rightDim: 分数1对应leftDim，分数5对应rightDim
+// ─────────────────────────────────────────────────────────────
+const questions = [
+    // ══ 第一部分：D/W 维度 ══
+    {
+        label: "Q1",
+        part: "第一部分 · 能量系统",
+        dim: "D / W",
+        reverse: false,
+        weight: 1.2,
+        leftDim: "D", rightDim: "W",
+        scene: "连续三天晚上都有社交安排后，第四天朋友又约你",
+        text: "你的内心OS是？",
+        options: [
+            { emoji: "😫", main: "杀了我吧", sub: "强烈内倾" },
+            { emoji: "🙁", main: "有点累，但可以去", sub: "轻度内倾" },
+            { emoji: "😐", main: "看心情", sub: "中性" },
+            { emoji: "🙂", main: "正好无聊，走起", sub: "轻度外倾" },
+            { emoji: "🥳", main: "我的能量刚充满！", sub: "强烈外倾" }
+        ],
+        feedback: "社交对你来说是消耗还是充电，这道题最能说明问题。你的能量系统决定了你在关系里需要多少「独处充电」的空间。"
+    },
+    {
+        label: "Q2",
+        part: "第一部分 · 能量系统",
+        dim: "D / W",
+        reverse: false,
+        weight: 1.2,
+        leftDim: "D", rightDim: "W",
+        scene: "你有一个完全空闲的周六下午",
+        text: "最可能的行为是？",
+        options: [
+            { emoji: "📚", main: "在家看书/追剧，享受独处", sub: "深沉型" },
+            { emoji: "🎨", main: "独自发展爱好（画画、写东西）", sub: "偏内倾" },
+            { emoji: "🛋️", main: "可能在家可能出门，看天气", sub: "中性" },
+            { emoji: "☕", main: "约1-2个朋友喝咖啡", sub: "偏外倾" },
+            { emoji: "🎉", main: "组织或参加多人活动", sub: "旷达型" }
+        ],
+        feedback: "空闲时间的选择，是你能量补给方式最真实的镜子。"
+    },
+    {
+        label: "Q3",
+        part: "第一部分 · 能量系统",
+        dim: "D / W",
+        reverse: false,
+        weight: 1.2,
+        leftDim: "D", rightDim: "W",
+        scene: "工作中遇到难题",
+        text: "你更倾向于？",
+        options: [
+            { emoji: "🤔", main: "独自研究解决", sub: "深沉型" },
+            { emoji: "💻", main: "先自己试，不行再问", sub: "偏内倾" },
+            { emoji: "🔀", main: "看问题类型决定", sub: "中性" },
+            { emoji: "👥", main: "找同事讨论一下", sub: "偏外倾" },
+            { emoji: "🗣️", main: "立刻组织头脑风暴", sub: "旷达型" }
+        ],
+        feedback: "面对难题时的第一反应，折射出你处理信息的方式——向内还是向外。"
+    },
+    {
+        label: "Q4",
+        part: "第一部分 · 能量系统",
+        dim: "D / W",
+        reverse: true,
+        weight: 1.0,
+        leftDim: "W", rightDim: "D",
+        scene: "如果周末两天都一个人待着",
+        text: "我会感到……",
+        options: [
+            { emoji: "😊", main: "非常满足和放松", sub: "（反向题）" },
+            { emoji: "🙂", main: "还不错", sub: "" },
+            { emoji: "😐", main: "有点无聊但能接受", sub: "" },
+            { emoji: "😕", main: "开始焦虑想找人", sub: "" },
+            { emoji: "😰", main: "快要抑郁了", sub: "" }
+        ],
+        feedback: "独处的感受是检验内外倾最直接的方式。满足感越强，内倾倾向越明显。"
+    },
+    {
+        label: "Q5",
+        part: "第一部分 · 能量系统",
+        dim: "D / W",
+        reverse: true,
+        weight: 1.0,
+        leftDim: "W", rightDim: "D",
+        scene: "在大型聚会中",
+        text: "你的角色通常是？",
+        options: [
+            { emoji: "🎤", main: "活跃气氛者/组织者", sub: "（反向题）" },
+            { emoji: "💬", main: "积极参与聊天", sub: "" },
+            { emoji: "👂", main: "倾听者，偶尔发言", sub: "" },
+            { emoji: "🪑", main: "坐在角落观察", sub: "" },
+            { emoji: "🚪", main: "想提前溜走的人", sub: "" }
+        ],
+        feedback: "聚会里的角色定位，往往是你社交能量模式的缩影。"
+    },
+    {
+        label: "Q6",
+        part: "第一部分 · 能量系统",
+        dim: "D / W",
+        reverse: false,
+        weight: 0.8,
+        leftDim: "D", rightDim: "W",
+        scene: "长途飞行中",
+        text: "你希望邻座是？",
+        options: [
+            { emoji: "😶", main: "最好不要跟我说话", sub: "深沉型" },
+            { emoji: "🙂", main: "礼貌微笑后各自安静", sub: "偏内倾" },
+            { emoji: "🤝", main: "简单寒暄即可", sub: "中性" },
+            { emoji: "🗣️", main: "能愉快聊天的陌生人", sub: "偏外倾" },
+            { emoji: "👥", main: "下飞机就能约饭的新朋友", sub: "旷达型" }
+        ],
+        feedback: "陌生人相处的偏好，是你社交边界感最自然的流露。"
+    },
+
+    // ══ 第二部分：M/P 维度 ══
+    {
+        label: "Q7",
+        part: "第二部分 · 理解处理器",
+        dim: "M / P",
+        reverse: false,
+        weight: 1.2,
+        leftDim: "M", rightDim: "P",
+        scene: "看了一部深奥的电影",
+        text: "你的第一反应是？",
+        options: [
+            { emoji: "📝", main: "想写影评分析隐喻", sub: "深度映照" },
+            { emoji: "💭", main: "和朋友讨论深层含义", sub: "偏映照" },
+            { emoji: "🎬", main: "好看/不好看，没了", sub: "中性" },
+            { emoji: "🍿", main: "享受了就够了，不深想", sub: "偏陪伴" },
+            { emoji: "😴", main: "困了，下次再看", sub: "轻松陪伴" }
+        ],
+        feedback: "对深度内容的处理方式，折射出你在关系里对「被理解」的渴望程度。"
+    },
+    {
+        label: "Q8",
+        part: "第二部分 · 理解处理器",
+        dim: "M / P",
+        reverse: false,
+        weight: 1.2,
+        leftDim: "M", rightDim: "P",
+        scene: "朋友向你展示TA的摄影作品",
+        text: "你更可能说？",
+        options: [
+            { emoji: "🎨", main: "「这张的光影表达了孤独感」", sub: "深度映照" },
+            { emoji: "👍", main: "「你拍得真好，有感觉」", sub: "偏映照" },
+            { emoji: "📸", main: "「用什么相机拍的？」", sub: "中性" },
+            { emoji: "🌟", main: "「发朋友圈肯定很多人点赞」", sub: "偏陪伴" },
+            { emoji: "😄", main: "「好看！」然后继续聊别的", sub: "轻松陪伴" }
+        ],
+        feedback: "回应他人作品的方式，是你情感深度的一面镜子。"
+    },
+    {
+        label: "Q9",
+        part: "第二部分 · 理解处理器",
+        dim: "M / P",
+        reverse: false,
+        weight: 1.2,
+        leftDim: "M", rightDim: "P",
+        scene: "在一段关系中，如果对方不能理解我某些深层的想法",
+        text: "我会……",
+        options: [
+            { emoji: "😔", main: "非常失落，觉得关系有缺憾", sub: "深度映照" },
+            { emoji: "🙁", main: "有点在意，但可以接受", sub: "偏映照" },
+            { emoji: "😐", main: "无所谓，人本来就不能完全互相理解", sub: "中性" },
+            { emoji: "😊", main: "更好，保持神秘感", sub: "偏陪伴" },
+            { emoji: "🤷", main: "完全不在意这个", sub: "轻松陪伴" }
+        ],
+        feedback: "「被理解」的需求强度，决定了你在关系里最深的渴望是什么。"
+    },
+    {
+        label: "Q10",
+        part: "第二部分 · 理解处理器",
+        dim: "M / P",
+        reverse: true,
+        weight: 1.0,
+        leftDim: "P", rightDim: "M",
+        scene: "安慰失恋的朋友",
+        text: "你的方式更接近？",
+        options: [
+            { emoji: "🍲", main: "「走，带你去吃好吃的！」", sub: "（反向题）" },
+            { emoji: "🎮", main: "「打游戏吗？分散下注意力」", sub: "" },
+            { emoji: "🤗", main: "「我在呢，想哭就哭吧」", sub: "" },
+            { emoji: "💬", main: "「我们来分析一下这段关系的问题」", sub: "" },
+            { emoji: "📖", main: "「我读过一本关于依恋类型的书…」", sub: "" }
+        ],
+        feedback: "安慰方式是你情感处理模式的直接体现——行动派还是分析派？"
+    },
+    {
+        label: "Q11",
+        part: "第二部分 · 理解处理器",
+        dim: "M / P",
+        reverse: true,
+        weight: 1.0,
+        leftDim: "P", rightDim: "M",
+        scene: "",
+        text: "我认为分享过于私人的想法是……",
+        options: [
+            { emoji: "👍", main: "增进亲密的重要方式", sub: "（反向题）" },
+            { emoji: "👌", main: "可以的，但要选对人", sub: "" },
+            { emoji: "🤐", main: "不太必要", sub: "" },
+            { emoji: "🚫", main: "危险且不明智", sub: "" },
+            { emoji: "❌", main: "绝对不会做的事", sub: "" }
+        ],
+        feedback: "对「分享私人想法」的态度，折射出你在关系里的开放程度。"
+    },
+    {
+        label: "Q12",
+        part: "第二部分 · 理解处理器",
+        dim: "M / P",
+        reverse: false,
+        weight: 0.8,
+        leftDim: "M", rightDim: "P",
+        scene: "你发的朋友圈有人评论",
+        text: "你最希望看到？",
+        options: [
+            { emoji: "🧠", main: "读懂你潜台词的深度解读", sub: "深度映照" },
+            { emoji: "❤️", main: "表达共鸣的暖心评论", sub: "偏映照" },
+            { emoji: "😂", main: "好笑的互动/梗", sub: "中性" },
+            { emoji: "🌟", main: "「好看！」之类的简单夸奖", sub: "偏陪伴" },
+            { emoji: "👍", main: "简单点赞就好", sub: "轻松陪伴" }
+        ],
+        feedback: "对他人回应的期待，是你「被理解」需求的晴雨表。"
+    },
+
+    // ══ 第三部分：S/V 维度 ══
+    {
+        label: "Q13",
+        part: "第三部分 · 表达编码器",
+        dim: "S / V",
+        reverse: false,
+        weight: 1.2,
+        leftDim: "S", rightDim: "V",
+        scene: "关心生病的家人",
+        text: "你的做法是？",
+        options: [
+            { emoji: "🍲", main: "默默熬粥送过去", sub: "行动表达" },
+            { emoji: "💊", main: "买好药和水果", sub: "偏行动" },
+            { emoji: "🤝", main: "陪在旁边，偶尔说几句", sub: "中性" },
+            { emoji: "📞", main: "打电话叮嘱多休息", sub: "偏语言" },
+            { emoji: "💬", main: "每天发消息关心状况", sub: "语言表达" }
+        ],
+        feedback: "关心的方式是行动还是语言，这是你爱的语言最真实的体现。"
+    },
+    {
+        label: "Q14",
+        part: "第三部分 · 表达编码器",
+        dim: "S / V",
+        reverse: false,
+        weight: 1.2,
+        leftDim: "S", rightDim: "V",
+        scene: "庆祝朋友的重大成就",
+        text: "你更可能？",
+        options: [
+            { emoji: "🎁", main: "精心准备礼物", sub: "行动表达" },
+            { emoji: "🍾", main: "组织庆祝派对", sub: "偏行动" },
+            { emoji: "🥂", main: "一起吃顿饭，聊聊感受", sub: "中性" },
+            { emoji: "✍️", main: "写一封真诚的信", sub: "偏语言" },
+            { emoji: "🗣️", main: "当众发表赞美演讲", sub: "语言表达" }
+        ],
+        feedback: "庆祝方式折射出你表达情感的惯用频道。"
+    },
+    {
+        label: "Q15",
+        part: "第三部分 · 表达编码器",
+        dim: "S / V",
+        reverse: false,
+        weight: 1.2,
+        leftDim: "S", rightDim: "V",
+        scene: "",
+        text: "表达爱意时，我觉得……",
+        options: [
+            { emoji: "🤐", main: "说出口反而变廉价", sub: "行动表达" },
+            { emoji: "🙊", main: "行动比语言重要", sub: "偏行动" },
+            { emoji: "💫", main: "行动和语言都需要", sub: "中性" },
+            { emoji: "💬", main: "说出来对方才能确认", sub: "偏语言" },
+            { emoji: "🗣️", main: "必须经常表达，感情需要语言滋养", sub: "语言表达" }
+        ],
+        feedback: "对「说出口」的态度，是你表达方式最核心的信念。"
+    },
+    {
+        label: "Q16",
+        part: "第三部分 · 表达编码器",
+        dim: "S / V",
+        reverse: true,
+        weight: 1.0,
+        leftDim: "V", rightDim: "S",
+        scene: "与伴侣闹矛盾后和好",
+        text: "你的方式是？",
+        options: [
+            { emoji: "💐", main: "买花/礼物道歉", sub: "（反向题）" },
+            { emoji: "🍛", main: "做TA爱吃的菜", sub: "" },
+            { emoji: "🤗", main: "主动拥抱，不说太多", sub: "" },
+            { emoji: "💌", main: "写道歉信", sub: "" },
+            { emoji: "🗣️", main: "认真谈一次，把感受说清楚", sub: "" }
+        ],
+        feedback: "和好的方式是你表达歉意和爱意的惯用语言。"
+    },
+    {
+        label: "Q17",
+        part: "第三部分 · 表达编码器",
+        dim: "S / V",
+        reverse: true,
+        weight: 1.0,
+        leftDim: "V", rightDim: "S",
+        scene: "如果对方总是用语言表达爱，但行动跟不上",
+        text: "我会……",
+        options: [
+            { emoji: "✅", main: "完全接受，有语言就够了", sub: "（反向题）" },
+            { emoji: "👍", main: "大部分接受，行动也重要", sub: "" },
+            { emoji: "🤔", main: "半信半疑", sub: "" },
+            { emoji: "❌", main: "不太相信，要看行动", sub: "" },
+            { emoji: "🚫", main: "完全不信，觉得虚伪", sub: "" }
+        ],
+        feedback: "对「语言vs行动」的信任度，是你爱的语言偏好的深层体现。"
+    },
+    {
+        label: "Q18",
+        part: "第三部分 · 表达编码器",
+        dim: "S / V",
+        reverse: false,
+        weight: 0.8,
+        leftDim: "S", rightDim: "V",
+        scene: "想念一个远方的朋友",
+        text: "你会？",
+        options: [
+            { emoji: "🎁", main: "寄一份礼物给TA", sub: "行动表达" },
+            { emoji: "📦", main: "看到适合TA的东西买下来", sub: "偏行动" },
+            { emoji: "📷", main: "发一张「想到你了」的照片", sub: "中性" },
+            { emoji: "📱", main: "发消息说「想你了」", sub: "偏语言" },
+            { emoji: "📞", main: "直接打电话聊天", sub: "语言表达" }
+        ],
+        feedback: "思念的表达方式，是你情感输出模式最自然的流露。"
+    },
+
+    // ══ 第四部分：F/L 维度 ══
+    {
+        label: "Q19",
+        part: "第四部分 · 冲突处理器",
+        dim: "F / L",
+        reverse: false,
+        weight: 1.2,
+        leftDim: "F", rightDim: "L",
+        scene: "发现伴侣有一个习惯让你无法忍受",
+        text: "你会？",
+        options: [
+            { emoji: "⚡", main: "立刻严肃沟通，要求改变", sub: "直面解决" },
+            { emoji: "📅", main: "找合适时间正式谈谈", sub: "偏直面" },
+            { emoji: "💡", main: "委婉暗示几次", sub: "中性" },
+            { emoji: "🤐", main: "忍到忍不了再说", sub: "偏回避" },
+            { emoji: "🌊", main: "默默接受，慢慢适应", sub: "融合化解" }
+        ],
+        feedback: "面对关系里的摩擦，你是选择直面还是消化，这决定了你的冲突处理风格。"
+    },
+    {
+        label: "Q20",
+        part: "第四部分 · 冲突处理器",
+        dim: "F / L",
+        reverse: false,
+        weight: 1.2,
+        leftDim: "F", rightDim: "L",
+        scene: "和朋友因意见不合争执",
+        text: "你的态度是？",
+        options: [
+            { emoji: "⚔️", main: "必须辩出个对错", sub: "直面解决" },
+            { emoji: "💬", main: "认真讨论，但不强求一致", sub: "偏直面" },
+            { emoji: "🤝", main: "各退一步，找共识", sub: "中性" },
+            { emoji: "🌊", main: "换个话题，避免伤感情", sub: "偏回避" },
+            { emoji: "🕊️", main: "立刻让步，和谐最重要", sub: "融合化解" }
+        ],
+        feedback: "争执时的态度，是你冲突处理模式最直接的体现。"
+    },
+    {
+        label: "Q21",
+        part: "第四部分 · 冲突处理器",
+        dim: "F / L",
+        reverse: false,
+        weight: 1.2,
+        leftDim: "F", rightDim: "L",
+        scene: "面对关系中的问题",
+        text: "我认为……",
+        options: [
+            { emoji: "🔥", main: "早发现早解决，拖久了更糟", sub: "直面解决" },
+            { emoji: "⏰", main: "需要时机，但不能无限拖延", sub: "偏直面" },
+            { emoji: "⚖️", main: "视情况而定", sub: "中性" },
+            { emoji: "🌙", main: "时间会解决很多问题", sub: "偏回避" },
+            { emoji: "☁️", main: "有些问题不说破反而更好", sub: "融合化解" }
+        ],
+        feedback: "对「问题要不要说开」的信念，是你冲突哲学的核心。"
+    },
+    {
+        label: "Q22",
+        part: "第四部分 · 冲突处理器",
+        dim: "F / L",
+        reverse: true,
+        weight: 1.0,
+        leftDim: "L", rightDim: "F",
+        scene: "伴侣在冷战中",
+        text: "你会？",
+        options: [
+            { emoji: "🏃", main: "主动打破僵局，要求沟通", sub: "（反向题）" },
+            { emoji: "🤝", main: "给个台阶下，暗示和好", sub: "" },
+            { emoji: "⏳", main: "等TA先开口", sub: "" },
+            { emoji: "❄️", main: "比TA更能忍", sub: "" },
+            { emoji: "🚪", main: "假装什么都没发生", sub: "" }
+        ],
+        feedback: "冷战时的应对策略，是你冲突回避程度的真实写照。"
+    },
+    {
+        label: "Q23",
+        part: "第四部分 · 冲突处理器",
+        dim: "F / L",
+        reverse: true,
+        weight: 1.0,
+        leftDim: "L", rightDim: "F",
+        scene: "",
+        text: "激烈的争吵在亲密关系中……",
+        options: [
+            { emoji: "👍", main: "是健康的，能促进了解", sub: "（反向题）" },
+            { emoji: "👌", main: "偶尔有必要", sub: "" },
+            { emoji: "🤔", main: "尽量避免", sub: "" },
+            { emoji: "🚫", main: "绝对要避免", sub: "" },
+            { emoji: "💔", main: "是关系破裂的前兆", sub: "" }
+        ],
+        feedback: "对争吵的态度，折射出你对冲突本质的理解。"
+    },
+    {
+        label: "Q24",
+        part: "第四部分 · 冲突处理器",
+        dim: "F / L",
+        reverse: false,
+        weight: 0.8,
+        leftDim: "F", rightDim: "L",
+        scene: "工作中与同事有严重分歧",
+        text: "你的策略是？",
+        options: [
+            { emoji: "🗣️", main: "拉上领导开会说清楚", sub: "直面解决" },
+            { emoji: "💼", main: "约TA一对一沟通", sub: "偏直面" },
+            { emoji: "📧", main: "发邮件书面沟通", sub: "中性" },
+            { emoji: "🤫", main: "暂时搁置，专注其他工作", sub: "偏回避" },
+            { emoji: "🌊", main: "顺着TA，减少摩擦", sub: "融合化解" }
+        ],
+        feedback: "工作场景里的冲突处理，往往比亲密关系里更能看出你的真实风格。"
+    },
+
+    // ══ 第五部分：综合校验 ══
+    {
+        label: "Q25",
+        part: "第五部分 · 综合校验",
+        dim: "综合",
+        reverse: false,
+        weight: 1.0,
+        leftDim: null, rightDim: null,
+        scene: "想象你理想中的完美亲密关系",
+        text: "最接近哪种画面？",
+        options: [
+            { emoji: "🕯️", main: "深夜长谈，灵魂共振", sub: "D+M 倾向", calibrate: { D: 0.3, M: 0.3 } },
+            { emoji: "🎮", main: "一起闯关打怪的最佳搭档", sub: "W+P 倾向", calibrate: { W: 0.3, P: 0.3 } },
+            { emoji: "✍️", main: "写信交流，文字传情的笔友式", sub: "S+V 倾向", calibrate: { S: 0.2, V: 0.2 } },
+            { emoji: "⚡", main: "有问题当场吵完，不隔夜", sub: "V+F 倾向", calibrate: { V: 0.2, F: 0.3 } },
+            { emoji: "🌱", main: "安静陪伴，岁月静好", sub: "S+L 倾向", calibrate: { S: 0.3, L: 0.3 } },
+            { emoji: "🎉", main: "热热闹闹，欢声笑语", sub: "W+P 倾向", calibrate: { W: 0.3, P: 0.3 } },
+            { emoji: "🔍", main: "互相剖析，深度了解", sub: "M+F 倾向", calibrate: { M: 0.3, F: 0.3 } },
+            { emoji: "🏡", main: "各自独立，需要时都在", sub: "D+L 倾向", calibrate: { D: 0.2, L: 0.2 } }
+        ],
+        feedback: "理想关系的画面，是你所有维度倾向的综合投影，也是最诚实的自我表达。"
+    }
+];
+
+// ─────────────────────────────────────────────────────────────
+// 16 种人格类型
+// ─────────────────────────────────────────────────────────────
+const personalities = {
+    "DMSF": {
+        name: "渊镜", mnemonic: "沉 · 映 · 隐 · 炼",
+        quote: "我在最深处，带着伤痕等你",
+        desc: "你是一面深渊里的镜子。沉默不是冷漠，是你把所有感受都压进了最深处，等待一个真正走近的人。你敏感、细腻，能照见别人看不见的东西，也能在冲突里直面真相。你的爱，是最重的那种。",
+        advice: [
+            { icon: "🔋", text: "每2小时社交后安排30分钟独处，保护你的能量边界" },
+            { icon: "💬", text: "尝试「行动+解释」组合：做某事后简单说明意图，让对方看见你的心" },
+            { icon: "🔥", text: "给L型伴侣足够的冷静时间，再开启你的直面模式" }
+        ]
+    },
+    "DMSL": {
+        name: "静潮", mnemonic: "沉 · 映 · 隐 · 融",
+        quote: "我不说话，但我的沉默都是你",
+        desc: "你像一片深海里的潮汐，不声不响地涌动。你敏感地感知着对方的每一个细节，却选择用沉默和等待来回应。你不撕裂，你融化。你的爱是最安静的那种，也是最持久的那种。",
+        advice: [
+            { icon: "🌊", text: "你的沉默有时会被误解为冷漠，偶尔说出「我在想你」会让关系更安心" },
+            { icon: "⏰", text: "学会区分「时间会解决」和「需要主动沟通」的问题" },
+            { icon: "🪞", text: "你的敏感是礼物，但也要允许自己不总是「照见」对方" }
+        ]
+    },
+    "DMVF": {
+        name: "珠泪", mnemonic: "沉 · 映 · 鸣 · 炼",
+        quote: "每一颗珍珠，都是没哭出来的夜晚",
+        desc: "你沉入内心，却不甘于沉默。你敏感地感知，然后选择说出来——不是为了倾诉，是为了真正被看见。你愿意直面冲突，把那些没哭出来的夜晚，炼成珍珠。你的爱，是最勇敢的那种。",
+        advice: [
+            { icon: "💎", text: "你的直面勇气是稀缺的，但注意给对方足够的情绪缓冲时间" },
+            { icon: "🗣️", text: "练习非暴力沟通：观察+感受+需求+请求，让表达更有力量" },
+            { icon: "🌙", text: "独处时间是你深度处理情感的必需品，不要忽视它" }
+        ]
+    },
+    "DMVL": {
+        name: "月栖", mnemonic: "沉 · 映 · 鸣 · 融",
+        quote: "我不刺眼，但我一直亮着",
+        desc: "你像月亮一样——沉静，却有光。你敏感地感知，愿意说出来，但不强迫，不撕裂，只是温柔地等待时机。你的爱是最稳定的那种，不耀眼，但一直在。",
+        advice: [
+            { icon: "🌕", text: "你的温柔等待有时会让对方不知道你的真实需求，适时直接表达" },
+            { icon: "💬", text: "你擅长说出感受，继续保持这个能力，它是关系的润滑剂" },
+            { icon: "🔋", text: "内倾的你需要独处充电，不要因为「想陪伴」而透支自己" }
+        ]
+    },
+    "DPSF": {
+        name: "双潜", mnemonic: "沉 · 伴 · 隐 · 炼",
+        quote: "你不必懂我，只需和我一起沉默",
+        desc: "你不需要被完全理解，只需要一个愿意和你一起沉默的人。你稳定、平静，不纠结细节，但在冲突来临时，你会直面它。你的爱，是最踏实的那种。",
+        advice: [
+            { icon: "🤝", text: "你的稳定是关系的锚，但也要允许自己偶尔「不稳定」" },
+            { icon: "🎁", text: "用行动表达爱时，记得偶尔说出来，让对方知道你的心意" },
+            { icon: "⚡", text: "直面冲突的勇气是你的优势，但注意时机和方式" }
+        ]
+    },
+    "DPSL": {
+        name: "幽舟", mnemonic: "沉 · 伴 · 隐 · 融",
+        quote: "我们不说话，这艘船知道方向",
+        desc: "你和对方之间不需要太多语言，只需要同一个方向。你平静、稳定，不纠结，不撕裂，只是默默地陪着，让时间做它该做的事。你的爱，是最安心的那种。",
+        advice: [
+            { icon: "🚢", text: "你的陪伴是无声的礼物，但有时对方需要听到你说「我爱你」" },
+            { icon: "⏰", text: "学会识别哪些问题「时间无法解决」，需要主动开口" },
+            { icon: "🌊", text: "你的平静有时会被误解为不在乎，适时表达你的在意" }
+        ]
+    },
+    "DPVF": {
+        name: "渊火", mnemonic: "沉 · 伴 · 鸣 · 炼",
+        quote: "我在深渊点了一把火，你来不来",
+        desc: "你沉入深处，却在那里点了一把火。你平静地陪伴，却在需要的时候说出来，直面冲突。你的爱是最有力量的那种——安静的外表下，藏着一团不灭的火。",
+        advice: [
+            { icon: "🔥", text: "你的直面+语言组合很有力量，注意不要让对方感到压迫" },
+            { icon: "🌊", text: "平静是你的底色，在激烈沟通后记得给自己和对方恢复空间" },
+            { icon: "💬", text: "你说出来的话往往很有分量，善用这个能力" }
+        ]
+    },
+    "DPVL": {
+        name: "蓝鲸", mnemonic: "沉 · 伴 · 鸣 · 融",
+        quote: "全世界听不到，但你可以",
+        desc: "你像蓝鲸一样，在深海里发出只有特定频率才能接收的声音。你平静地陪伴，愿意说出来，但不强迫，只是等待那个能听见你的人。你的爱，是最深情的那种。",
+        advice: [
+            { icon: "🐋", text: "你的频率很独特，找到能接收你信号的人，关系会非常深厚" },
+            { icon: "💬", text: "你愿意说出来是优势，继续保持，但也要学会倾听对方的频率" },
+            { icon: "🌊", text: "融合型的你在冲突中容易退让，注意保护自己的边界" }
+        ]
+    },
+    "WMSF": {
+        name: "野镜", mnemonic: "旷 · 映 · 隐 · 炼",
+        quote: "风里有你的样子",
+        desc: "你在旷野里流动，却有一面敏感的镜子。你感知着风里的每一个细节，把它们藏在心里，在冲突来临时直面它。你的爱，是最自由也最深刻的那种。",
+        advice: [
+            { icon: "🌬️", text: "你的自由需要空间，找一个能给你空间又不会感到被忽视的伴侣" },
+            { icon: "🪞", text: "你的敏感+直面组合很强大，注意不要让对方感到被「解剖」" },
+            { icon: "🎁", text: "行动表达是你的语言，但偶尔说出来会让关系更有安全感" }
+        ]
+    },
+    "WMSL": {
+        name: "星守", mnemonic: "旷 · 映 · 隐 · 融",
+        quote: "我哪儿都不去，我在这里等你",
+        desc: "你自由流动，却有一颗守候的心。你敏感地感知，选择沉默，用时间和温柔来融化一切。你的爱，是最温柔的守候——我哪儿都不去，我在这里。",
+        advice: [
+            { icon: "⭐", text: "你的守候是深情的，但要确保对方知道你在等他，而不是在逃避" },
+            { icon: "🌊", text: "融合型的你容易积累情绪，学会在小问题时就说出来" },
+            { icon: "🔋", text: "外倾的你从社交中获得能量，但也要给自己深度独处的时间" }
+        ]
+    },
+    "WMVF": {
+        name: "篝语", mnemonic: "旷 · 映 · 鸣 · 炼",
+        quote: "夜很长，我们慢慢说",
+        desc: "你像篝火旁的夜晚——旷野、温暖、有话要说。你敏感地感知，愿意说出来，也愿意直面冲突。你的爱，是最有温度的那种，夜很长，你不急，但你想说完。",
+        advice: [
+            { icon: "🔥", text: "你的表达能力是礼物，但注意给内倾型伴侣足够的「消化时间」" },
+            { icon: "💬", text: "你的直面+语言组合很有力量，学会在激烈后给关系降温" },
+            { icon: "🌙", text: "深夜长谈是你的充电方式，找一个同样享受这种连接的人" }
+        ]
+    },
+    "WMVL": {
+        name: "回声", mnemonic: "旷 · 映 · 鸣 · 融",
+        quote: "你说什么都好听，因为是你在说",
+        desc: "你是旷野里的回声——自由流动，敏感感知，愿意说出来，也愿意等待。你的爱，是最温柔的共鸣，你不强迫，只是把对方的声音接住，再轻轻还给他。",
+        advice: [
+            { icon: "🎵", text: "你的共鸣能力很强，注意不要在「接住对方」的过程中失去自己的声音" },
+            { icon: "🌊", text: "融合型的你容易在冲突中退让，学会表达自己的真实需求" },
+            { icon: "💬", text: "你的语言表达是优势，用它来说出你自己的感受，不只是回应对方" }
+        ]
+    },
+    "WPSF": {
+        name: "孤星", mnemonic: "旷 · 伴 · 隐 · 炼",
+        quote: "我不靠近，但我为你亮着",
+        desc: "你像一颗孤星——自由、稳定、沉默，却在需要的时候直面一切。你不需要时刻靠近，但你一直亮着。你的爱，是最独立也最坚定的那种。",
+        advice: [
+            { icon: "⭐", text: "你的独立是优势，但要让对方知道你「一直亮着」，而不是消失了" },
+            { icon: "🎁", text: "行动表达是你的语言，偶尔说出来会让关系更有温度" },
+            { icon: "⚡", text: "直面冲突的勇气很好，注意在自由的同时给关系足够的安全感" }
+        ]
+    },
+    "WPSL": {
+        name: "风旅", mnemonic: "旷 · 伴 · 隐 · 融",
+        quote: "我们不必同路，只需同一片风",
+        desc: "你和对方不需要时刻在一起，只需要同一片风。你自由、平静、沉默，用时间和空间来融化一切。你的爱，是最自由的那种——不占有，只陪伴。",
+        advice: [
+            { icon: "🌬️", text: "你的自由式爱情需要找到同样不需要「时刻确认」的伴侣" },
+            { icon: "🌊", text: "融合型的你容易积累问题，学会在小摩擦时就轻轻说出来" },
+            { icon: "🎁", text: "你的行动表达很真诚，但对方可能需要更多语言上的确认" }
+        ]
+    },
+    "WPVF": {
+        name: "野火", mnemonic: "旷 · 伴 · 鸣 · 炼",
+        quote: "要不，把这世界点着？",
+        desc: "你是旷野里的一把火——自由、平静，却有话要说，也敢于直面冲突。你的爱，是最有力量的那种，不是温柔的守候，是把世界点着，然后问你：来不来？",
+        advice: [
+            { icon: "🔥", text: "你的能量很强，注意不要让内倾型伴侣感到被「燃烧」" },
+            { icon: "💬", text: "你的直面+语言组合很有力量，学会在激烈后给关系降温" },
+            { icon: "🌊", text: "你的平静底色是优势，在激烈沟通后记得回到这个状态" }
+        ]
+    },
+    "WPVL": {
+        name: "星尘", mnemonic: "旷 · 伴 · 鸣 · 融",
+        quote: "我们迟早会在某颗星星上重逢",
+        desc: "你像星尘一样——自由流动，平静陪伴，愿意说出来，也愿意等待。你的爱，是最浪漫的那种，不执着于此刻，相信迟早会在某颗星星上重逢。",
+        advice: [
+            { icon: "✨", text: "你的浪漫和自由是礼物，找一个同样相信「缘分」的人" },
+            { icon: "🌊", text: "融合型的你容易在冲突中退让，学会表达自己的真实需求" },
+            { icon: "💬", text: "你愿意说出来是优势，用它来说出你的边界，不只是你的爱" }
+        ]
+    }
+};
+
+const cpTable = {
+    "DMSF": { soul: "WMVL", night: "DPSL", mirror: "WPSF" },
+    "DMSL": { soul: "WMVF", night: "DMSF", mirror: "WPVF" },
+    "DMVF": { soul: "WPSL", night: "DMVL", mirror: "DPVL" },
+    "DMVL": { soul: "WMSF", night: "DMVF", mirror: "DPSF" },
+    "DPSF": { soul: "WPSF", night: "DMSF", mirror: "WMVL" },
+    "DPSL": { soul: "WPSL", night: "DMSF", mirror: "WMVF" },
+    "DPVF": { soul: "WMSL", night: "WPVF", mirror: "DMVL" },
+    "DPVL": { soul: "WMVF", night: "DPSL", mirror: "DMSF" },
+    "WMSF": { soul: "DMVL", night: "WPSF", mirror: "DPVL" },
+    "WMSL": { soul: "DPVF", night: "DMSL", mirror: "WPVF" },
+    "WMVF": { soul: "DMSL", night: "WMVL", mirror: "DPSF" },
+    "WMVL": { soul: "DMSF", night: "WMVF", mirror: "WPSF" },
+    "WPSF": { soul: "DPSF", night: "WMSF", mirror: "WMVL" },
+    "WPSL": { soul: "DPSL", night: "WPVL", mirror: "DMSF" },
+    "WPVF": { soul: "WMSL", night: "DPVF", mirror: "DMVL" },
+    "WPVL": { soul: "DPVL", night: "WPSL", mirror: "WMVF" }
+};
+
+const cpTypeLabel = {
+    soul:   { label: "灵魂伴侣", desc: "最佳张力与平衡" },
+    night:  { label: "深夜挚友", desc: "天然理解，默契深厚" },
+    mirror: { label: "成长之镜", desc: "有冲突但带来成长" }
+};
+
+const dimInfo = [
+    { leftKey: "D", rightKey: "W", leftLabel: "D 深沉", rightLabel: "W 旷达", name: "深沉/旷达",
+      leftDetail: "社交消耗型，独处充电", rightDetail: "社交充能型，人群中找到自己" },
+    { leftKey: "M", rightKey: "P", leftLabel: "M 映照", rightLabel: "P 陪伴", name: "映照/陪伴",
+      leftDetail: "渴望深度理解与灵魂共鸣", rightDetail: "重视稳定陪伴与轻松相处" },
+    { leftKey: "S", rightKey: "V", leftLabel: "S 隐语", rightLabel: "V 鸣响", name: "隐语/鸣响",
+      leftDetail: "行动表达爱，沉默也是语言", rightDetail: "语言表达爱，说出来才算数" },
+    { leftKey: "F", rightKey: "L", leftLabel: "F 炼化", rightLabel: "L 融合", name: "炼化/融合",
+      leftDetail: "直面冲突，早解决早清净", rightDetail: "回避冲突，时间会融化一切" }
+];
+
+// ─────────────────────────────────────────────────────────────
+// 状态
+// ─────────────────────────────────────────────────────────────
+let currentQ = 0;
+// 每个维度的加权分数（越高越偏左侧维度）
+let dimScores = { D: 0, W: 0, M: 0, P: 0, S: 0, V: 0, F: 0, L: 0 };
+// 用于信度检验：记录每题的原始选项（1-5）
+let rawAnswers = [];
+let answered = false;
+
+// ─────────────────────────────────────────────────────────────
+// 开始
+// ─────────────────────────────────────────────────────────────
+function startTest() {
+    document.getElementById('startPage').style.display = 'none';
+    const qp = document.getElementById('questionPage');
+    qp.style.display = 'block';
+    qp.classList.add('fade-in');
+    renderQuestion();
+}
+
+// ─────────────────────────────────────────────────────────────
+// 渲染题目
+// ─────────────────────────────────────────────────────────────
+function renderQuestion() {
+    answered = false;
+    document.getElementById('feedbackBox').style.display = 'none';
+    document.getElementById('nextBtn').style.display = 'none';
+
+    const q = questions[currentQ];
+    const pct = (currentQ / questions.length) * 100;
+
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('qNum').textContent = `第 ${currentQ + 1} 题 / 共 ${questions.length} 题`;
+    document.getElementById('qDim').textContent = q.part;
+    document.getElementById('qLabel').textContent = q.label + ' · ' + q.dim;
+    document.getElementById('qTitle').textContent = q.scene ? '【场景】' + q.scene : '';
+    document.getElementById('qText').textContent = q.text;
+
+    const sceneEl = document.getElementById('qScene');
+    sceneEl.textContent = '';
+
+    // 渲染选项
+    const isQ25 = (currentQ === 24);
+    const wrapClass = isQ25 ? 'options-q25' : 'options-5pt';
+
+    const html = `<div class="${wrapClass}">` + q.options.map((opt, i) => `
+        <button class="opt-btn-5pt" id="opt${i}" onclick="selectOption(${i})">
+            <span class="opt-emoji">${opt.emoji}</span>
+            <span class="opt-content">
+                <span class="opt-main-text">${opt.main}</span>
+                ${opt.sub ? `<span class="opt-sub-text">${opt.sub}</span>` : ''}
+            </span>
+        </button>
+    `).join('') + `</div>`;
+
+    document.getElementById('optionsList').innerHTML = html;
+}
+
+// ─────────────────────────────────────────────────────────────
+// 选择选项（五点量表计分）
+// ─────────────────────────────────────────────────────────────
+function selectOption(idx) {
+    if (answered) return;
+    answered = true;
+
+    const q = questions[currentQ];
+    const score = idx + 1; // 1-5 分
+    rawAnswers.push({ qIdx: currentQ, score: score, reverse: q.reverse });
+
+    // Q25 综合校验题：直接用 calibrate 微调
+    if (currentQ === 24) {
+        const cal = q.options[idx].calibrate || {};
+        Object.keys(cal).forEach(k => {
+            dimScores[k] = (dimScores[k] || 0) + cal[k];
+        });
+    } else {
+        // 正常计分：score 1→左维度最强，score 5→右维度最强
+        // 反向题：score 1→右维度最强，score 5→左维度最强
+        const effectiveScore = q.reverse ? (6 - score) : score;
+        const w = q.weight;
+
+        // effectiveScore 1-2 → leftDim，4-5 → rightDim，3 → 中性
+        if (effectiveScore <= 2) {
+            const contribution = (3 - effectiveScore) * w; // 2→1, 1→2
+            dimScores[q.leftDim] = (dimScores[q.leftDim] || 0) + contribution;
+        } else if (effectiveScore >= 4) {
+            const contribution = (effectiveScore - 2) * w; // 4→2, 5→3... wait
+            // effectiveScore 4 → contribution 2*w, 5 → 3*w? Let's normalize:
+            // effectiveScore 4 → 1*w, effectiveScore 5 → 2*w
+            const c = (effectiveScore - 3) * w;
+            dimScores[q.rightDim] = (dimScores[q.rightDim] || 0) + c;
+        }
+        // effectiveScore 3 → 中性，不加分
+    }
+
+    document.querySelectorAll('.opt-btn-5pt').forEach((btn, i) => {
+        btn.disabled = true;
+        if (i === idx) btn.classList.add('chosen');
+    });
+
+    document.getElementById('feedbackText').textContent = q.feedback;
+    document.getElementById('feedbackBox').style.display = 'block';
+
+    const nb = document.getElementById('nextBtn');
+    nb.style.display = 'block';
+    nb.textContent = currentQ < questions.length - 1 ? '继续 →' : '查看我的星图 ✦';
+}
+
+// ─────────────────────────────────────────────────────────────
+// 下一题
+// ─────────────────────────────────────────────────────────────
+function nextQuestion() {
+    currentQ++;
+    if (currentQ < questions.length) {
+        const qp = document.getElementById('questionPage');
+        qp.classList.remove('fade-in');
+        setTimeout(() => { qp.classList.add('fade-in'); renderQuestion(); }, 50);
+    } else {
+        showResult();
+    }
+}
+
+// ─────────────────────────────────────────────────────────────
+// 信度检验
+// ─────────────────────────────────────────────────────────────
+function checkReliability() {
+    // 检查正向题与反向题的一致性
+    // D/W: Q1(正,D→低分), Q4(反,D→低分实际是高分)
+    // 如果Q1选1-2（强D）且Q4选1-2（反向后也是强D），一致
+    // 如果Q1选1-2（强D）且Q4选4-5（反向后是强W），不一致
+    const pairs = [
+        { fwd: 0, rev: 3 },   // Q1 vs Q4 (D/W)
+        { fwd: 1, rev: 4 },   // Q2 vs Q5 (D/W)
+        { fwd: 6, rev: 9 },   // Q7 vs Q10 (M/P)
+        { fwd: 7, rev: 10 },  // Q8 vs Q11 (M/P)
+        { fwd: 12, rev: 15 }, // Q13 vs Q16 (S/V)
+        { fwd: 13, rev: 16 }, // Q14 vs Q17 (S/V)
+        { fwd: 18, rev: 21 }, // Q19 vs Q22 (F/L)
+        { fwd: 19, rev: 22 }  // Q20 vs Q23 (F/L)
+    ];
+
+    let inconsistencies = 0;
+    pairs.forEach(pair => {
+        const fwdAns = rawAnswers.find(a => a.qIdx === pair.fwd);
+        const revAns = rawAnswers.find(a => a.qIdx === pair.rev);
+        if (fwdAns && revAns) {
+            const fwdScore = fwdAns.score;
+            const revEffective = 6 - revAns.score; // 反向题转换
+            // 如果两者差距超过3，认为不一致
+            if (Math.abs(fwdScore - revEffective) > 3) {
+                inconsistencies++;
+            }
+        }
+    });
+
+    const reliability = Math.max(0, 1 - (inconsistencies / 8));
+    return Math.round(reliability * 100);
+}
+
+// ─────────────────────────────────────────────────────────────
+// 生成结果
+// ─────────────────────────────────────────────────────────────
+function showResult() {
+    // 计算各维度百分比（左维度分数占比）
+    function pairPct(leftKey, rightKey) {
+        const l = dimScores[leftKey] || 0;
+        const r = dimScores[rightKey] || 0;
+        const total = l + r;
+        if (total === 0) return 50;
+        return Math.round((l / total) * 100);
+    }
+
+    const dwPct = pairPct('D', 'W');
+    const mpPct = pairPct('M', 'P');
+    const svPct = pairPct('S', 'V');
+    const flPct = pairPct('F', 'L');
+
+    const D = dwPct >= 50 ? 'D' : 'W';
+    const M = mpPct >= 50 ? 'M' : 'P';
+    const S = svPct >= 50 ? 'S' : 'V';
+    const F = flPct >= 50 ? 'F' : 'L';
+    const code = D + M + S + F;
+
+    const p = personalities[code] || personalities['DMSF'];
+    const cp = cpTable[code] || cpTable['DMSF'];
+    const reliabilityPct = checkReliability();
+
+    // 强度描述
+    function intensityLabel(pct) {
+        const diff = Math.abs(50 - pct);
+        if (diff > 30) return '强烈';
+        if (diff > 15) return '明显';
+        return '中等';
+    }
+
+    // 星级
+    function stars(pct, leftKey) {
+        const diff = Math.abs(50 - pct);
+        const filled = Math.min(5, Math.round(diff / 10) + 1);
+        return '⭐'.repeat(filled) + '☆'.repeat(5 - filled);
+    }
+
+    const spectrumBars = dimInfo.map((d, i) => {
+        const pcts = [dwPct, mpPct, svPct, flPct];
+        const pct = pcts[i];
+        let tendency = '平衡';
+        if (pct > 60)      tendency = `偏 ${d.leftLabel}`;
+        else if (pct < 40) tendency = `偏 ${d.rightLabel}`;
+        return `
+        <div class="spectrum-item">
+            <div class="spectrum-labels">
+                <span>${d.leftLabel}</span>
+                <span class="s-mid">${d.name}</span>
+                <span>${d.rightLabel}</span>
+            </div>
+            <div class="spectrum-track">
+                <div class="spectrum-fill" style="width:${pct}%"></div>
+                <div class="spectrum-midline"></div>
+            </div>
+            <div class="spectrum-tendency">${tendency}</div>
+        </div>`;
+    }).join('');
+
+    const dimDetails = dimInfo.map((d, i) => {
+        const pcts = [dwPct, mpPct, svPct, flPct];
+        const pct = pcts[i];
+        const isLeft = pct >= 50;
+        const activeDim = isLeft ? d.leftLabel : d.rightLabel;
+        const activeDetail = isLeft ? d.leftDetail : d.rightDetail;
+        const intensity = intensityLabel(pct);
+        const displayPct = isLeft ? pct : (100 - pct);
+        return `
+        <div class="dim-detail-item">
+            <div class="dim-detail-header">
+                <span class="dim-detail-name">${d.name}</span>
+                <span class="dim-detail-pct">${activeDim} · ${displayPct}%</span>
+            </div>
+            <div class="dim-detail-stars">${stars(pct)} ${intensity}倾向</div>
+            <div class="dim-detail-desc">${activeDetail}</div>
+        </div>`;
+    }).join('');
+
+    const adviceItems = (p.advice || []).map(a => `
+        <div class="advice-item">
+            <span class="advice-icon">${a.icon}</span>
+            <span class="advice-text">${a.text}</span>
+        </div>
+    `).join('');
+
+    const cpCards = ['soul', 'night', 'mirror'].map(type => {
+        const cpCode = cp[type];
+        const cpP = personalities[cpCode] || { name: '—', mnemonic: '' };
+        const info = cpTypeLabel[type];
+        return `
+        <div class="cp-card">
+            <div class="cp-type-label">${info.label}</div>
+            <img class="cp-avatar" src="images/${cpCode} ${cpP.name}.png" alt="${cpP.name}" onerror="this.style.display='none'">
+            <div class="cp-code">${cpCode}</div>
+            <div class="cp-name">${cpP.name}</div>
+            <div class="cp-desc">${info.desc}</div>
+        </div>`;
+    }).join('');
+
+    document.getElementById('questionPage').style.display = 'none';
+    const rp = document.getElementById('resultPage');
+    rp.style.display = 'block';
+    rp.classList.add('fade-in');
+
+    rp.innerHTML = `
+        <div class="result-banner">
+            <div class="result-type-tag">✦ ${code} ✦</div>
+            <img class="result-avatar" src="images/${code} ${p.name}.png" alt="${p.name}" onerror="this.style.display='none'">
+            <div class="result-name">${p.name}</div>
+            <div class="result-mnemonic">${p.mnemonic}</div>
+            <p class="result-quote">"${p.quote}"</p>
+        </div>
+
+        <div class="reliability-card">
+            <span class="reliability-icon">🧪</span>
+            <div class="reliability-info">
+                <div class="reliability-label">答题一致性指数</div>
+                <div class="reliability-bar-wrap">
+                    <div class="reliability-bar-fill" style="width:${reliabilityPct}%"></div>
+                </div>
+                <div class="reliability-text">${reliabilityPct}% · ${reliabilityPct >= 80 ? '结果可信度高 ✓' : reliabilityPct >= 60 ? '结果基本可信' : '建议重新测试'}</div>
+            </div>
+        </div>
+
+        <div class="spectrum-card">
+            <div class="section-title">📊 你的关系光谱</div>
+            ${spectrumBars}
+        </div>
+
+        <div class="dim-detail-card">
+            <div class="section-title">🔍 维度详细分析</div>
+            ${dimDetails}
+        </div>
+
+        <div class="desc-card">
+            <div class="section-title">🌙 你在关系里的样子</div>
+            <p>${p.desc}</p>
+        </div>
+
+        <div class="advice-card">
+            <div class="section-title">💡 个性化建议</div>
+            ${adviceItems}
+        </div>
+
+        <div class="cp-card-wrap">
+            <div class="section-title">✦ 你的 CP 配对</div>
+            <div class="cp-grid">${cpCards}</div>
+        </div>
+
+        <div class="disclaimer">
+            <p>⚠️ 本测试基于心理学类型理论，结果仅供参考。<br>人的复杂性远超任何测试，请勿用结果定义自己或他人。</p>
+        </div>
+
+        <button class="restart-btn" onclick="restartTest()">✦ 重新测试 ✦</button>
+        <p class="share-hint">截图分享给朋友，看看你们是什么配对～</p>
+    `;
+}
+
+// ─────────────────────────────────────────────────────────────
+// 重新测试
+// ─────────────────────────────────────────────────────────────
+function restartTest() {
+    currentQ = 0;
+    dimScores = { D: 0, W: 0, M: 0, P: 0, S: 0, V: 0, F: 0, L: 0 };
+    rawAnswers = [];
+    answered = false;
+
+    document.getElementById('resultPage').style.display = 'none';
+    const sp = document.getElementById('startPage');
+    sp.style.display = 'block';
+    sp.classList.add('fade-in');
+}
+</script>
+</body>
+</html>
