@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>角星君 · 人格测试</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap');
+
+        :root {
+            --purple: #8b5cf6;
+            --purple-dark: #6d28d9;
+            --purple-light: #a78bfa;
+            --purple-pale: #ede9fe;
+            --purple-faint: #f5f3ff;
+            --ink: #1e1b4b;
+            --ink-mid: #4c1d95;
+            --text: #374151;
+            --text-soft: #6b7280;
+            --text-faint: #9ca3af;
+            --white: #ffffff;
+            --bg: #f0ebff;
+            --card-shadow: 0 4px 24px rgba(109,40,217,0.10);
+            --card-shadow-hover: 0 8px 32px rgba(109,40,217,0.18);
+            --radius: 20px;
+            --radius-sm: 12px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            min-height: 100vh;
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* ── 背景装饰 ── */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -120px; right: -80px;
+            width: 360px; height: 360px;
+            background: radial-gradient(circle, rgba(167,139,250,0.25) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -100px; left: -60px;
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(139,92,246,0.15) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 440px;
+            margin: 0 auto;
+            padding: 20px 16px 48px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ════════════════════════════════
+           开始页
+        ════════════════════════════════ */
+        #startPage { display: block; }
+
+        .hero {
+            background: linear-gradient(145deg, #7c3aed 0%, #5b21b6 50%, #4c1d95 100%);
+            border-radius: 28px;
+            padding: 36px 24px 32px;
+            margin-bottom: 16px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 12px 40px rgba(109,40,217,0.40);
+        }
+
+        .hero-orb {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.07);
+        }
+        .hero-orb-1 { width: 180px; height: 180px; top: -60px; right: -40px; }
+        .hero-orb-2 { width: 100px; height: 100px; bottom: -30px; left: -20px; }
+        .hero-orb-3 { width: 60px; height: 60px; top: 20px; left: 30px; }
+
+        .hero-star {
+            font-size: 40px;
+            margin-bottom: 10px;
+            display: block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        .hero-title {
+            font-size: 38px;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: 6px;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.2);
+            margin-bottom: 8px;
+        }
+
+        .hero-sub {
+            font-size: 13px;
+            color: rgba(255,255,255,0.75);
+            font-weight: 500;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .hero-badges {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .hero-badge {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(8px);
+            color: rgba(255,255,255,0.9);
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        /* 特质网格 */
+        .card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 16px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .card-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--purple);
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .trait-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .trait-chip {
+            background: var(--purple-faint);
+            border: 1.5px solid var(--purple-pale);
+            border-radius: 10px;
+            padding: 8px 4px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--purple-dark);
+            line-height: 1.4;
+        }
+
+        .trait-chip .chip-icon { font-size: 16px; display: block; margin-bottom: 2px; }
+
+        /* 答题说明 */
+        .scale-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .scale-item {
+            background: var(--purple-faint);
+            border-radius: var(--radius-sm);
+            padding: 12px 8px;
+            text-align: center;
+            border: 1.5px solid var(--purple-pale);
+        }
+
+        .scale-icon {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            margin: 0 auto 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 900;
+        }
+
+        .scale-icon.yes { background: var(--purple); color: #fff; }
+        .scale-icon.mid { background: var(--purple-pale); color: var(--purple); }
+        .scale-icon.no  { background: #f3f4f6; color: #9ca3af; }
+
+        .scale-label { font-size: 12px; font-weight: 700; color: var(--ink-mid); }
+        .scale-score { font-size: 12px; color: var(--text-faint); margin-top: 2px; }
+
+        .start-note {
+            font-size: 12px;
+            color: var(--text-soft);
+            line-height: 1.8;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .btn-primary {
+            width: 100%;
+            background: linear-gradient(135deg, var(--purple) 0%, var(--purple-dark) 100%);
+            color: #fff;
+            border: none;
+            padding: 17px 0;
+            font-size: 17px;
+            font-weight: 900;
+            border-radius: 50px;
+            cursor: pointer;
+            letter-spacing: 3px;
+            box-shadow: 0 6px 0 #4c1d95, 0 10px 24px rgba(109,40,217,0.35);
+            transition: transform 0.15s, box-shadow 0.15s;
+            font-family: inherit;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 60%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            transform: skewX(-20deg);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover::after { left: 150%; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 0 #4c1d95, 0 14px 28px rgba(109,40,217,0.35); }
+        .btn-primary:active { transform: translateY(3px); box-shadow: 0 3px 0 #4c1d95, 0 4px 12px rgba(109,40,217,0.25); }
+
+        /* ════════════════════════════════
+           答题页
+        ════════════════════════════════ */
+        #questionPage { display: none; }
+
+        .progress-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            margin-bottom: 14px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .progress-num {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--purple);
+        }
+
+        .progress-part {
+            display: none;
+        }
+
+        .progress-track {
+            background: var(--purple-pale);
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, var(--purple), var(--purple-light));
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .q-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 32px 24px 28px;
+            margin-bottom: 14px;
+            box-shadow: var(--card-shadow);
+            min-height: 120px;
+        }
+
+        .q-num-tag {
+            display: none;
+        }
+
+        .q-text {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--ink);
+            line-height: 1.75;
+        }
+
+        /* 三选项 */
+        .options-wrap {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .opt-btn {
+            background: var(--white);
+            border: 2px solid var(--purple-pale);
+            border-radius: 16px;
+            padding: 22px 10px 20px;
+            cursor: pointer;
+            text-align: center;
+            font-family: inherit;
+            box-shadow: 0 3px 0 var(--purple-pale);
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .opt-btn:hover:not(:disabled) {
+            border-color: var(--purple-light);
+            background: var(--purple-faint);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 0 var(--purple-pale);
+        }
+
+        .opt-btn:active:not(:disabled) {
+            transform: translateY(1px);
+            box-shadow: 0 2px 0 var(--purple-pale);
+        }
+
+        .opt-btn.selected {
+            border-color: var(--purple);
+            background: var(--purple-faint);
+            box-shadow: 0 3px 0 var(--purple);
+            transform: translateY(-1px);
+        }
+
+        .opt-btn.selected .opt-icon {
+            background: var(--purple);
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        .opt-btn:disabled { cursor: default; }
+
+        .opt-icon {
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            background: var(--purple-faint);
+            color: var(--purple);
+            font-size: 18px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .opt-label {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--ink);
+            line-height: 1.3;
+        }
+
+        .opt-score {
+            display: none;
+        }
+
+        /* 继续按钮 */
+        .next-btn {
+            display: none;
+            width: 100%;
+            background: linear-gradient(135deg, var(--purple) 0%, var(--purple-dark) 100%);
+            color: #fff;
+            border: none;
+            padding: 16px 0;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            letter-spacing: 2px;
+            box-shadow: 0 5px 0 #4c1d95, 0 8px 20px rgba(109,40,217,0.30);
+            transition: transform 0.15s, box-shadow 0.15s;
+            font-family: inherit;
+        }
+
+        .next-btn:hover { transform: translateY(-2px); box-shadow: 0 7px 0 #4c1d95, 0 12px 24px rgba(109,40,217,0.30); }
+        .next-btn:active { transform: translateY(2px); box-shadow: 0 3px 0 #4c1d95; }
+
+        /* ════════════════════════════════
+           结果页
+        ════════════════════════════════ */
+        #resultPage { display: none; }
+
+        /* 结果顶部横幅 */
+        .result-hero {
+            background: linear-gradient(145deg, #7c3aed 0%, #5b21b6 50%, #4c1d95 100%);
+            border-radius: 28px;
+            padding: 48px 28px 40px;
+            margin-bottom: 18px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 12px 40px rgba(109,40,217,0.40);
+        }
+
+        .result-hero-orb {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.06);
+        }
+        .rho-1 { width: 200px; height: 200px; top: -80px; right: -60px; }
+        .rho-2 { width: 120px; height: 120px; bottom: -40px; left: -30px; }
+
+        .result-type-pill {
+            display: inline-block;
+            background: rgba(255,255,255,0.18);
+            color: rgba(255,255,255,0.9);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 5px 18px;
+            border-radius: 20px;
+            margin-bottom: 16px;
+            letter-spacing: 3px;
+            border: 1px solid rgba(255,255,255,0.25);
+        }
+
+        .result-avatar-wrap { display: none; }
+        .result-avatar { display: none; }
+        .result-avatar-placeholder { display: none; }
+
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .result-name {
+            font-size: 38px;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: 6px;
+            text-shadow: 0 2px 16px rgba(0,0,0,0.25);
+            margin-bottom: 10px;
+        }
+
+        .result-dims {
+            font-size: 13px;
+            color: rgba(255,255,255,0.70);
+            font-weight: 500;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+        }
+
+        .result-quote {
+            font-size: 15px;
+            color: rgba(255,255,255,0.90);
+            font-style: italic;
+            line-height: 1.9;
+            font-weight: 500;
+            background: rgba(255,255,255,0.12);
+            border-radius: 14px;
+            padding: 16px 20px;
+            border-left: 3px solid rgba(255,255,255,0.45);
+            text-align: left;
+        }
+
+        /* 四维度 */
+        .dim4-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .dim4-item {
+            background: var(--purple-faint);
+            border-radius: var(--radius-sm);
+            padding: 18px 16px;
+            border: 1.5px solid var(--purple-pale);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dim4-item::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 3px; height: 100%;
+            background: var(--purple);
+            border-radius: 2px 0 0 2px;
+        }
+
+        .dim4-label {
+            font-size: 12px;
+            color: var(--text-faint);
+            font-weight: 600;
+            margin-bottom: 6px;
+            padding-left: 8px;
+        }
+
+        .dim4-value {
+            font-size: 22px;
+            font-weight: 900;
+            color: var(--purple-dark);
+            padding-left: 8px;
+            margin-bottom: 4px;
+        }
+
+        .dim4-score {
+            font-size: 12px;
+            color: var(--text-faint);
+            padding-left: 8px;
+        }
+
+        /* 人格底牌 */
+        .desc-text {
+            font-size: 15px;
+            color: var(--text);
+            line-height: 2.0;
+            font-weight: 400;
+        }
+
+        /* 天赋 & 盲区 */
+        .gift-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 14px;
+            align-items: flex-start;
+        }
+
+        .gift-row:last-child { margin-bottom: 0; }
+
+        .gift-tag {
+            flex-shrink: 0;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 8px;
+            margin-top: 2px;
+        }
+
+        .gift-tag.green { background: #d1fae5; color: #065f46; }
+        .gift-tag.amber { background: #fef3c7; color: #92400e; }
+        .gift-tag.blue  { background: #dbeafe; color: #1e40af; }
+
+        .gift-text {
+            font-size: 14px;
+            color: var(--text);
+            line-height: 1.8;
+        }
+
+        /* 天赋定位 */
+        .media-box {
+            background: linear-gradient(135deg, var(--purple-faint) 0%, #faf5ff 100%);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            border: 1.5px solid var(--purple-pale);
+            margin-bottom: 10px;
+        }
+
+        .media-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--purple-dark);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .media-desc {
+            font-size: 13px;
+            color: var(--text-soft);
+            line-height: 1.85;
+        }
+
+        /* 特质条形图 */
+        .trait-bar {
+            margin-bottom: 14px;
+        }
+
+        .trait-bar:last-child { margin-bottom: 0; }
+
+        .trait-bar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .trait-bar-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .trait-bar-val {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--purple);
+        }
+
+        .trait-bar-track {
+            background: var(--purple-pale);
+            height: 9px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .trait-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, var(--purple), var(--purple-light));
+            width: 0;
+            transition: width 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* 建议 */
+        .advice-item {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--purple-pale);
+        }
+
+        .advice-item:last-child { border-bottom: none; padding-bottom: 0; }
+        .advice-item:first-child { padding-top: 0; }
+
+        .advice-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .advice-text {
+            font-size: 14px;
+            color: var(--text);
+            line-height: 1.8;
+        }
+
+        /* CP 模块 */
+        .cp-type-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .cp-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            border: 2px solid;
+            cursor: default;
+        }
+
+        .cp-chip.best {
+            background: var(--purple-faint);
+            border-color: var(--purple-light);
+            color: var(--purple-dark);
+        }
+
+        .cp-chip.contrast {
+            background: #fff7ed;
+            border-color: #fdba74;
+            color: #9a3412;
+        }
+
+        .cp-section-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-faint);
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .cp-divider {
+            height: 1px;
+            background: var(--purple-pale);
+            margin: 14px 0;
+        }
+
+        .cp-detail {
+            margin-bottom: 14px;
+        }
+
+        .cp-detail:last-child { margin-bottom: 0; }
+
+        .cp-detail-head {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .cp-badge {
+            font-size: 12px;
+            font-weight: 700;
+            padding: 3px 9px;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .cp-badge.best { background: var(--purple-faint); color: var(--purple); border: 1px solid var(--purple-pale); }
+        .cp-badge.contrast { background: #fff7ed; color: #c2410c; border: 1px solid #fed7aa; }
+
+        .cp-pair-name {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--ink);
+        }
+
+        .cp-detail-text {
+            font-size: 13px;
+            color: var(--text-soft);
+            line-height: 1.85;
+            padding-left: 4px;
+        }
+
+        /* 免责 */
+        .disclaimer {
+            background: var(--purple-faint);
+            border-radius: var(--radius-sm);
+            padding: 12px 16px;
+            margin-bottom: 14px;
+            border: 1px solid var(--purple-pale);
+        }
+
+        .disclaimer p {
+            font-size: 12px;
+            color: var(--text-faint);
+            line-height: 1.7;
+            text-align: center;
+        }
+
+        .restart-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--purple) 0%, var(--purple-dark) 100%);
+            color: #fff;
+            border: none;
+            padding: 16px 0;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            letter-spacing: 2px;
+            box-shadow: 0 5px 0 #4c1d95, 0 8px 20px rgba(109,40,217,0.30);
+            transition: transform 0.15s, box-shadow 0.15s;
+            font-family: inherit;
+            margin-bottom: 12px;
+        }
+
+        .restart-btn:hover { transform: translateY(-2px); box-shadow: 0 7px 0 #4c1d95, 0 12px 24px rgba(109,40,217,0.30); }
+        .restart-btn:active { transform: translateY(2px); box-shadow: 0 3px 0 #4c1d95; }
+
+        .share-hint {
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-faint);
+        }
+
+        /* ── 动画 ── */
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.92); }
+            to   { opacity: 1; transform: scale(1); }
+        }
+
+        .anim-slide { animation: slideUp 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+        .anim-pop   { animation: popIn  0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+
+        .anim-delay-1 { animation-delay: 0.05s; }
+        .anim-delay-2 { animation-delay: 0.10s; }
+        .anim-delay-3 { animation-delay: 0.15s; }
+        .anim-delay-4 { animation-delay: 0.20s; }
+        .anim-delay-5 { animation-delay: 0.25s; }
+        .anim-delay-6 { animation-delay: 0.30s; }
+        .anim-delay-7 { animation-delay: 0.35s; }
+        .anim-delay-8 { animation-delay: 0.40s; }
+
+        @media (max-width: 360px) {
+            .hero-title { font-size: 30px; }
+            .trait-grid { grid-template-columns: repeat(4, 1fr); }
+            .dim4-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- ════════════════════════════════
+         开始页
+    ════════════════════════════════ -->
+    <div id="startPage">
+
+        <div class="hero anim-pop">
+            <div class="hero-orb hero-orb-1"></div>
+            <div class="hero-orb hero-orb-2"></div>
+            <div class="hero-orb hero-orb-3"></div>
+            <span class="hero-star">✦</span>
+            <div class="hero-title">角 星 君</div>
+            <div class="hero-sub">人格测试 · 48题完整版</div>
+            <div class="hero-badges">
+                <span class="hero-badge">16 种特质</span>
+                <span class="hero-badge">16 种类型</span>
+                <span class="hero-badge">约 5 分钟</span>
+            </div>
+        </div>
+
+        <div class="card anim-slide anim-delay-1">
+            <div class="card-title">🔬 测量的 16 种特质</div>
+            <div class="trait-grid">
+                <div class="trait-chip"><span class="chip-icon">🌐</span>合群</div>
+                <div class="trait-chip"><span class="chip-icon">🧠</span>聪慧</div>
+                <div class="trait-chip"><span class="chip-icon">🌊</span>情绪稳定</div>
+                <div class="trait-chip"><span class="chip-icon">⚔️</span>好胜</div>
+                <div class="trait-chip"><span class="chip-icon">🎉</span>活泼</div>
+                <div class="trait-chip"><span class="chip-icon">📋</span>尽责</div>
+                <div class="trait-chip"><span class="chip-icon">🦁</span>大胆</div>
+                <div class="trait-chip"><span class="chip-icon">🎨</span>敏感</div>
+                <div class="trait-chip"><span class="chip-icon">🔍</span>多疑</div>
+                <div class="trait-chip"><span class="chip-icon">☁️</span>爱幻想</div>
+                <div class="trait-chip"><span class="chip-icon">🎭</span>世故</div>
+                <div class="trait-chip"><span class="chip-icon">😟</span>爱担心</div>
+                <div class="trait-chip"><span class="chip-icon">🚀</span>求新</div>
+                <div class="trait-chip"><span class="chip-icon">🏔️</span>独立</div>
+                <div class="trait-chip"><span class="chip-icon">⏰</span>自律</div>
+                <div class="trait-chip"><span class="chip-icon">😰</span>容易紧张</div>
+            </div>
+        </div>
+
+        <div class="card anim-slide anim-delay-2">
+            <div class="card-title">📖 答题说明</div>
+            <div class="scale-row">
+                <div class="scale-item">
+                    <div class="scale-icon yes">✓</div>
+                    <div class="scale-label">符合</div>
+                    <div class="scale-score">2 分</div>
+                </div>
+                <div class="scale-item">
+                    <div class="scale-icon mid">≈</div>
+                    <div class="scale-label">差不多</div>
+                    <div class="scale-score">1 分</div>
+                </div>
+                <div class="scale-item">
+                    <div class="scale-icon no">✗</div>
+                    <div class="scale-label">不符合</div>
+                    <div class="scale-score">0 分</div>
+                </div>
+            </div>
+            <p class="start-note">共 48 题，每题 3 个选项。<br>凭第一直觉作答，没有对错之分。</p>
+            <button class="btn-primary" onclick="startTest()">✦ 开始测试 ✦</button>
+        </div>
+
+    </div>
+
+    <!-- ════════════════════════════════
+         答题页
+    ════════════════════════════════ -->
+    <div id="questionPage">
+
+        <div class="progress-card">
+            <div class="progress-header">
+                <span class="progress-num" id="qNum">第 1 题 / 共 48 题</span>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill" id="progressFill" style="width:2%"></div>
+            </div>
+        </div>
+
+        <div class="q-card" id="qCard">
+            <div class="q-text" id="qText"></div>
+        </div>
+
+        <div class="options-wrap" id="optionsList"></div>
+
+        <button class="next-btn" id="nextBtn" onclick="nextQuestion()">继续 →</button>
+
+    </div>
+
+    <!-- ════════════════════════════════
+         结果页
+    ════════════════════════════════ -->
+    <div id="resultPage"></div>
+
+</div>
+
+<!-- 外部数据文件 -->
+<script src="data/questions.js"></script>
+<script src="data/personalities.js"></script>
+
+<script>
+// ══════════════════════════════════════════════════════════════
+// 状态
+// ══════════════════════════════════════════════════════════════
+let currentQ = 0;
+let traitScores = {
+    "合群":0,"聪慧":0,"情绪稳定":0,"好胜":0,
+    "活泼":0,"尽责":0,"大胆":0,"敏感":0,
+    "多疑":0,"爱幻想":0,"世故":0,"爱担心":0,
+    "求新":0,"独立":0,"自律":0,"容易紧张":0
+};
+let selectedScore = null;
+
+// ══════════════════════════════════════════════════════════════
+// 开始
+// ══════════════════════════════════════════════════════════════
+function startTest() {
+    document.getElementById('startPage').style.display = 'none';
+    const qp = document.getElementById('questionPage');
+    qp.style.display = 'block';
+    qp.style.animation = 'none';
+    void qp.offsetWidth;
+    qp.style.animation = 'slideUp 0.45s cubic-bezier(0.34,1.56,0.64,1) both';
+    renderQuestion();
+}
+
+// ══════════════════════════════════════════════════════════════
+// 渲染题目
+// ══════════════════════════════════════════════════════════════
+function renderQuestion() {
+    selectedScore = null;
+    const nb = document.getElementById('nextBtn');
+    nb.style.display = 'none';
+    nb.disabled = false;
+
+    const q = questions[currentQ];
+    const pct = Math.max(2, Math.round(((currentQ + 1) / questions.length) * 100));
+
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('qNum').textContent = `第 ${currentQ + 1} 题 / 共 ${questions.length} 题`;
+    document.getElementById('qText').textContent = q.text;
+
+    const opts = [
+        { label:'符合',   score:2, icon:'✓', scoreLabel:'2分' },
+        { label:'差不多', score:1, icon:'≈', scoreLabel:'1分' },
+        { label:'不符合', score:0, icon:'✗', scoreLabel:'0分' }
+    ];
+
+    document.getElementById('optionsList').innerHTML = opts.map((opt, i) => `
+        <button class="opt-btn" id="opt${i}" onclick="selectOption(${i}, ${opt.score})">
+            <div class="opt-icon">${opt.icon}</div>
+            <div class="opt-label">${opt.label}</div>
+        </button>
+    `).join('');
+}
+
+// ══════════════════════════════════════════════════════════════
+// 选择选项
+// ══════════════════════════════════════════════════════════════
+function selectOption(idx, score) {
+    selectedScore = score;
+    document.querySelectorAll('.opt-btn').forEach((btn, i) => {
+        btn.classList.toggle('selected', i === idx);
+    });
+    const nb = document.getElementById('nextBtn');
+    nb.style.display = 'block';
+    nb.textContent = currentQ < questions.length - 1 ? '继续 →' : '查看我的类型 ✦';
+}
+
+// ══════════════════════════════════════════════════════════════
+// 下一题
+// ══════════════════════════════════════════════════════════════
+function nextQuestion() {
+    if (selectedScore === null) return;
+    document.querySelectorAll('.opt-btn').forEach(b => b.disabled = true);
+    document.getElementById('nextBtn').disabled = true;
+
+    traitScores[questions[currentQ].trait] += selectedScore;
+    selectedScore = null;
+    currentQ++;
+
+    if (currentQ < questions.length) {
+        const qp = document.getElementById('questionPage');
+        qp.style.animation = 'none';
+        void qp.offsetWidth;
+        qp.style.animation = 'slideUp 0.4s cubic-bezier(0.34,1.56,0.64,1) both';
+        renderQuestion();
+    } else {
+        showResult();
+    }
+}
+
+// ══════════════════════════════════════════════════════════════
+// 计算四维度（比较法，两侧均等对比）
+// ══════════════════════════════════════════════════════════════
+function calcDimensions() {
+    const s = traitScores;
+
+    // 外倾性：外放侧(合群+活泼+大胆) vs 内敛侧(多疑+爱担心+独立)
+    // 各取3个特质，均等对比
+    const extroA = s["合群"] + s["活泼"] + s["大胆"];          // 外放
+    const extroB = s["多疑"] + s["爱担心"] + s["独立"];        // 内敛
+    const extroScore = extroA - extroB;
+    const extro = extroScore >= 0 ? "外放" : "内敛";
+
+    // 情绪稳定性：沉稳侧(情绪稳定+活泼+合群) vs 易忧侧(爱担心+容易紧张+爱幻想)
+    // 各取3个特质，均等对比
+    const emoA = s["情绪稳定"] + s["活泼"] + s["合群"];        // 沉稳
+    const emoB = s["爱担心"] + s["容易紧张"] + s["爱幻想"];    // 易忧
+    const emoScore = emoA - emoB;
+    const emo = emoScore >= 0 ? "沉稳" : "易忧";
+
+    // 独立性：自主侧(好胜+独立+世故) vs 随和侧(合群+尽责+敏感)
+    // 各取3个特质，均等对比
+    const indA = s["好胜"] + s["独立"] + s["世故"];            // 自主
+    const indB = s["合群"] + s["尽责"] + s["敏感"];            // 随和
+    const indScore = indA - indB;
+    const ind = indScore >= 0 ? "自主" : "随和";
+
+    // 自律性：严谨侧(尽责+自律+聪慧) vs 随性侧(活泼+爱幻想+求新)
+    // 各取3个特质，均等对比
+    const disA = s["尽责"] + s["自律"] + s["聪慧"];            // 严谨
+    const disB = s["活泼"] + s["爱幻想"] + s["求新"];          // 随性
+    const disScore = disA - disB;
+    const dis = disScore >= 0 ? "严谨" : "随性";
+
+    return { extro, emo, ind, dis, extroScore, emoScore, indScore, disScore };
+}
+
+// ══════════════════════════════════════════════════════════════
+// 查找类型
+// ══════════════════════════════════════════════════════════════
+function findType(extro, emo, ind, dis) {
+    const table = [
+        { dims:["内敛","沉稳","随和","严谨"], code:"守派" },
+        { dims:["内敛","沉稳","随和","随性"], code:"闲派" },
+        { dims:["内敛","沉稳","自主","严谨"], code:"孤派" },
+        { dims:["内敛","沉稳","自主","随性"], code:"独派" },
+        { dims:["内敛","易忧","随和","严谨"], code:"慎派" },
+        { dims:["内敛","易忧","随和","随性"], code:"杞派" },
+        { dims:["内敛","易忧","自主","严谨"], code:"刺派" },
+        { dims:["内敛","易忧","自主","随性"], code:"狼派" },
+        { dims:["外放","沉稳","随和","严谨"], code:"热派" },
+        { dims:["外放","沉稳","随和","随性"], code:"乐派" },
+        { dims:["外放","沉稳","自主","严谨"], code:"领派" },
+        { dims:["外放","沉稳","自主","随性"], code:"冒派" },
+        { dims:["外放","易忧","随和","严谨"], code:"讨派" },
+        { dims:["外放","易忧","随和","随性"], code:"戏派" },
+        { dims:["外放","易忧","自主","严谨"], code:"斗派" },
+        { dims:["外放","易忧","自主","随性"], code:"短派" }
+    ];
+    const m = table.find(t => t.dims[0]===extro && t.dims[1]===emo && t.dims[2]===ind && t.dims[3]===dis);
+    return m ? m.code : "守派";
+}
+
+// ══════════════════════════════════════════════════════════════
+// 显示结果
+// ══════════════════════════════════════════════════════════════
+function showResult() {
+    const dims = calcDimensions();
+    const typeCode = findType(dims.extro, dims.emo, dims.ind, dims.dis);
+    const p = personalities[typeCode] || personalities["守派"];
+    const cp = cpData[typeCode] || { best:[], contrast:[] };
+
+    // 特质排序
+    const traitList = Object.entries(traitScores).sort((a,b) => b[1]-a[1]);
+
+    // 图片
+    const imgFile = typeImageMap[typeCode] || '';
+    const imgSrc = imgFile ? `images/${imgFile}.png` : '';
+
+    // 四维度卡片
+    const dimCards = [
+        { label:"外倾性", value:dims.extro, score:dims.extroScore, sub:"外放 vs 内敛" },
+        { label:"情绪稳定", value:dims.emo,   score:dims.emoScore,   sub:"沉稳 vs 易忧" },
+        { label:"独立性", value:dims.ind,   score:dims.indScore,   sub:"自主 vs 随和" },
+        { label:"自律性", value:dims.dis,   score:dims.disScore,   sub:"严谨 vs 随性" }
+    ].map(d => `
+        <div class="dim4-item">
+            <div class="dim4-label">${d.label}</div>
+            <div class="dim4-value">${d.value}</div>
+            <div class="dim4-score">${d.sub} · ${d.score>=0?'+':''}${d.score}</div>
+        </div>
+    `).join('');
+
+    // 特质条形图
+    const traitBars = traitList.map(([name, score]) => {
+        const s = Math.max(0, Math.min(6, score));
+        const pct = Math.round((s/6)*100);
+        return `
+        <div class="trait-bar">
+            <div class="trait-bar-header">
+                <span class="trait-bar-name">${traitEmoji[name]} ${name}</span>
+                <span class="trait-bar-val">${s}/6</span>
+            </div>
+            <div class="trait-bar-track">
+                <div class="trait-bar-fill" data-pct="${pct}" style="width:0%"></div>
+            </div>
+        </div>`;
+    }).join('');
+
+    // 建议
+    const adviceHTML = (p.advice||[]).map(a => `
+        <div class="advice-item">
+            <span class="advice-icon">${a.icon}</span>
+            <span class="advice-text">${a.text}</span>
+        </div>
+    `).join('');
+
+    // CP chips
+    const bestChips = cp.best.map(c => {
+        const parts = c.pair.split(' + ');
+        const partner = parts[0]===typeCode ? parts[1] : parts[0];
+        return `<span class="cp-chip best">💜 ${partner}</span>`;
+    }).join('');
+    const contrastChips = cp.contrast.map(c => {
+        const parts = c.pair.split(' + ');
+        const partner = parts[0]===typeCode ? parts[1] : parts[0];
+        return `<span class="cp-chip contrast">⚡ ${partner}</span>`;
+    }).join('');
+
+    // CP 详情
+    const bestDetails = cp.best.map(c => `
+        <div class="cp-detail">
+            <div class="cp-detail-head">
+                <span class="cp-badge best">最佳CP</span>
+                <span class="cp-pair-name">${c.pair}</span>
+            </div>
+            <div class="cp-detail-text">${c.desc}</div>
+        </div>
+    `).join('');
+    const contrastDetails = cp.contrast.map(c => `
+        <div class="cp-detail">
+            <div class="cp-detail-head">
+                <span class="cp-badge contrast">反差CP</span>
+                <span class="cp-pair-name">${c.pair}</span>
+            </div>
+            <div class="cp-detail-text">${c.desc}</div>
+        </div>
+    `).join('');
+
+    // 头像 HTML
+    const avatarHTML = imgSrc
+        ? `<img class="result-avatar" src="${imgSrc}" alt="${p.name}" onerror="this.parentNode.innerHTML='<div class=\\'result-avatar-placeholder\\'>✦</div>'">`
+        : `<div class="result-avatar-placeholder">✦</div>`;
+
+    document.getElementById('questionPage').style.display = 'none';
+    const rp = document.getElementById('resultPage');
+    rp.style.display = 'block';
+    rp.style.animation = 'none';
+    void rp.offsetWidth;
+    rp.style.animation = 'slideUp 0.45s cubic-bezier(0.34,1.56,0.64,1) both';
+
+    rp.innerHTML = `
+        <!-- 顶部横幅 -->
+        <div class="result-hero anim-pop">
+            <div class="result-hero-orb rho-1"></div>
+            <div class="result-hero-orb rho-2"></div>
+            <div class="result-type-pill">✦ ${p.code} ✦</div>
+            <div class="result-avatar-wrap">
+                <div class="result-avatar-ring"></div>
+                ${avatarHTML}
+            </div>
+            <div class="result-name">${p.name}</div>
+            <div class="result-dims">${p.dims.join(' · ')}</div>
+            <div class="result-quote">"${p.quote}"</div>
+        </div>
+
+        <!-- 四维度 -->
+        <div class="card anim-slide anim-delay-1">
+            <div class="card-title">🧭 四维度倾向</div>
+            <div class="dim4-grid">${dimCards}</div>
+        </div>
+
+        <!-- 人格底牌 -->
+        <div class="card anim-slide anim-delay-2">
+            <div class="card-title">🌙 人格底牌</div>
+            <p class="desc-text">${p.desc}</p>
+        </div>
+
+        <!-- 天赋 & 盲区 -->
+        <div class="card anim-slide anim-delay-3">
+            <div class="card-title">⚡ 天生天赋 & 盲区</div>
+            <div class="gift-row">
+                <span class="gift-tag green">最擅长</span>
+                <span class="gift-text">${p.handiest}</span>
+            </div>
+            <div class="gift-row">
+                <span class="gift-tag blue">天赋</span>
+                <span class="gift-text">${p.gift}</span>
+            </div>
+            <div class="gift-row">
+                <span class="gift-tag amber">盲区</span>
+                <span class="gift-text">${p.blindspot}</span>
+            </div>
+        </div>
+
+        <!-- 天赋定位 -->
+        <div class="card anim-slide anim-delay-4">
+            <div class="card-title">📱 天赋定位</div>
+            <div class="media-box">
+                <div class="media-title">🎯 ${p.media}</div>
+                <div class="media-desc">${p.mediaWhy}</div>
+            </div>
+        </div>
+
+        <!-- 16特质得分 -->
+        <div class="card anim-slide anim-delay-5">
+            <div class="card-title">📊 16 特质得分</div>
+            ${traitBars}
+        </div>
+
+        <!-- 建议 -->
+        <div class="card anim-slide anim-delay-6">
+            <div class="card-title">💡 给你的建议</div>
+            ${adviceHTML}
+        </div>
+
+        <!-- CP 匹配 -->
+        <div class="card anim-slide anim-delay-7">
+            <div class="card-title">💞 CP 匹配感</div>
+            <div class="cp-section-label">💜 最佳CP — 天生一对</div>
+            <div class="cp-type-row">${bestChips}</div>
+            <div class="cp-section-label">⚡ 反差CP — 越不同越有趣</div>
+            <div class="cp-type-row">${contrastChips}</div>
+            <div class="cp-divider"></div>
+            ${bestDetails}
+            ${contrastDetails}
+        </div>
+
+        <!-- 免责 -->
+        <div class="disclaimer anim-slide anim-delay-8">
+            <p>⚠️ 本测试基于心理学特质理论，结果仅供参考。<br>人的复杂性远超任何测试，请勿用结果定义自己或他人。</p>
+        </div>
+
+        <button class="restart-btn anim-slide anim-delay-8" onclick="restartTest()">✦ 重新测试 ✦</button>
+        <p class="share-hint">截图分享给朋友，看看你们是什么类型～</p>
+    `;
+
+    // 延迟触发条形图动画
+    setTimeout(() => {
+        document.querySelectorAll('.trait-bar-fill').forEach(el => {
+            el.style.width = el.dataset.pct + '%';
+        });
+    }, 300);
+}
+
+// ══════════════════════════════════════════════════════════════
+// 重新测试
+// ══════════════════════════════════════════════════════════════
+function restartTest() {
+    currentQ = 0;
+    traitScores = {
+        "合群":0,"聪慧":0,"情绪稳定":0,"好胜":0,
+        "活泼":0,"尽责":0,"大胆":0,"敏感":0,
+        "多疑":0,"爱幻想":0,"世故":0,"爱担心":0,
+        "求新":0,"独立":0,"自律":0,"容易紧张":0
+    };
+    selectedScore = null;
+
+    document.getElementById('resultPage').style.display = 'none';
+    const sp = document.getElementById('startPage');
+    sp.style.display = 'block';
+    sp.style.animation = 'none';
+    void sp.offsetWidth;
+    sp.style.animation = 'slideUp 0.45s cubic-bezier(0.34,1.56,0.64,1) both';
+    window.scrollTo({ top:0, behavior:'smooth' });
+}
+</script>
+</body>
+</html>
